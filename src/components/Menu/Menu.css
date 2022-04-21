@@ -1,0 +1,42 @@
+.menu{
+    background-color: #1c1c1c;
+    width: 180px;
+    height: 100%;
+    position: fixed;
+  }
+  
+  .menu .logo{
+    padding: 15px;
+  }
+  
+  .menu .logo img{
+   width: 100%;
+  }
+  
+  .menu li {
+    text-align: left;
+    padding: 12px 20px;
+    margin-top: 2px;
+    /* background-image: linear-gradient(to right, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0)); */
+  }
+  
+  .menu li a{
+    color: rgb(194, 194, 194);
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+  }
+  
+  .name{
+    color: rgb(194, 194, 194);
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 0;
+    padding: 25px;
+  }
+  
+  .name span{
+    color: #fff;
+  }
+  
+  
