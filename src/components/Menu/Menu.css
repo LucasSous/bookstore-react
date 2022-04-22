@@ -7,6 +7,7 @@
   
   .menu .logo{
     padding: 15px;
+    margin-bottom: 15px;
   }
   
   .menu .logo img{
@@ -14,17 +15,26 @@
   }
   
   .menu li {
-    text-align: left;
-    padding: 12px 20px;
     margin-top: 2px;
-    /* background-image: linear-gradient(to right, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0)); */
+  }
+
+  .menu li:hover {
+    margin-top: 2px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0));
   }
   
   .menu li a{
     color: rgb(194, 194, 194);
     text-decoration: none;
     display: block;
+    padding: 12px 20px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .material-symbols-outlined{
+    margin-right: 10px;
   }
   
   .name{

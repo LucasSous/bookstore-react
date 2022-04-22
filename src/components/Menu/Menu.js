@@ -1,5 +1,6 @@
 import logo from '../../img/logo.png'
 import './Menu.css'
+import { Link } from 'react-router-dom'
 
 function Menu() {
     return(
@@ -9,19 +10,34 @@ function Menu() {
             </div>
             <ul>
                 <li>
-                    <a>Dashboard</a>
+                    <Link to="/">
+                        <span className="material-symbols-outlined">
+                            dashboard
+                        </span>Dashboard
+                    </Link>
                 </li>
                 <li>
-                    <a>Usuários</a>
+                    <Link to="/users">
+                        <span className="material-symbols-outlined">person</span>
+                        Usuários
+                    </Link>
                 </li>
                 <li>
-                    <a>Livros</a>
+                    <Link to="/books">
+                        <span className="material-symbols-outlined">auto_stories</span>
+                        Livros
+                    </Link>
                 </li>
                 <li>
-                    <a>Editoras</a>
+                    <Link to="/publishers">
+                        <span className="material-symbols-outlined">local_library</span>
+                        Editoras
+                    </Link>
                 </li>
                 <li>
-                    <a>Alugueis</a>
+                    <Link to="/rents">
+                        <span className="material-symbols-outlined">calendar_today</span>
+                        Aluguéis</Link>
                 </li>
             </ul>
             <div className='name'>
