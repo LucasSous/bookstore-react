@@ -1,5 +1,5 @@
 import './BooksPage.css'
-import BaseHeader from '../../components/BaseHeader/BaseHeader.js';
+import BaseHeader from '../../components/BaseHeader/BaseHeader.jsx';
 
 function BooksPage() {
 

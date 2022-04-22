@@ -1,0 +1,20 @@
+.base-search{
+    margin-right: 15px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.137);
+}
+
+.input-group-text{
+    background-color: #fff;
+    border: none;
+}
+
+.input{
+    border: none;
+    border-radius: 0px 4px 4px 0px;
+}
+
+.input:focus {
+    outline: 0;
+}
