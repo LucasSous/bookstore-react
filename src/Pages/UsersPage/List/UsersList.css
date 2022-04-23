@@ -1,21 +1,36 @@
-.table{
-    background-color: #fff;
+.table {
+  background-color: #fff;
+  border-radius: 5px;
 }
 
-.table thead{
-    background-color: #1c1c1c;
-    color: rgb(194, 194, 194);
+.table thead {
+  background-color: #1c1c1c;
+  color: rgb(194, 194, 194);
+  border-radius: 20px;
 }
 
-.table .items-tr:hover{
-    background-color: rgb(240, 240, 240);
+.th-start {
+  border-radius: 5px 0 0;
 }
 
-.btn-action{
-    cursor: pointer;
-    border-radius: 10px;
+.th-end {
+  border-radius: 0 5px 0 0;
 }
 
-.btn-action:hover{
-    background-color: rgba(212, 212, 212, 0.5);
+.table td {
+  color: rgb(78, 78, 78);
+  font-size: 0.9rem;
+}
+
+.table .items-tr:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+.btn-action {
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.btn-action:hover {
+  background-color: rgba(212, 212, 212, 0.5);
 }

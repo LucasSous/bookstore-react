@@ -1,9 +1,11 @@
 import { Button } from 'react-bootstrap';
 
-function BaseButton({title}) {
-    return(
-        <Button variant="success">{title}</Button>
-    )
+function BaseButton(props) {
+  return (
+    <Button onClick={props.click} variant="success">
+      {props.title}
+    </Button>
+  );
 }
 
 export default BaseButton;
