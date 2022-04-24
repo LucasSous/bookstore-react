@@ -1,9 +1,9 @@
 import { FloatingLabel, Form } from 'react-bootstrap';
 
-function BaseTextField(params) {
+function BaseTextField(props) {
   return (
-    <FloatingLabel controlId="floatingInput" label={params.label} className="mb-3">
-      <Form.Control type="text" placeholder="name@example.com" />
+    <FloatingLabel controlId="floatingInput" label={props.label} className="mb-3">
+      <Form.Control type="text" placeholder=".." onChange={(e) => props.onChange(e.target.value)} />
     </FloatingLabel>
   );
 }

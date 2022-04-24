@@ -1,6 +1,7 @@
 import logo from '../../img/logo.png';
+import React from 'react';
 import './Menu.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Menu() {
   return (
@@ -10,37 +11,39 @@ function Menu() {
       </div>
       <ul>
         <li>
-          <Link to="/">
+          <NavLink to="/">
             <span className="material-symbols-outlined icon">dashboard</span>Dashboard
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/users">
+          <NavLink to="/users">
             <span className="material-symbols-outlined icon">person</span>
             Usuários
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/books">
+          <NavLink to="/books">
             <span className="material-symbols-outlined icon">auto_stories</span>
             Livros
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/publishers">
+          <NavLink to="/publishers">
             <span className="material-symbols-outlined icon">local_library</span>
             Editoras
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/rents">
+          <NavLink to="/rents">
             <span className="material-symbols-outlined icon">calendar_today</span>
             Aluguéis
-          </Link>
+          </NavLink>
         </li>
       </ul>
       <div className="name">
-        Feito por <span>Lucas Sousa</span>
+        <a href="https://github.com/LucasSous" target="_blank">
+          Feito por <span>Lucas Sousa</span>
+        </a>
       </div>
     </div>
   );

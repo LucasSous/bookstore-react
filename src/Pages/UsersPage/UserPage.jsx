@@ -14,6 +14,11 @@ function UserPage() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [userName, setUserName] = useState('');
+  const [userAddress, setUserAddress] = useState('');
+  const [userCity, setUserCity] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
   return (
     <div className="user-page">
       <Row>
@@ -28,14 +33,21 @@ function UserPage() {
       <UsersList />
       {/*open modal-------------------------*/}
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <BaseHeader title="Novo Usuário" />
-        </Modal.Header>
+        <Row className="px-3 pt-3 pb-2">
+          <Col>
+            <BaseHeader title="Novo Usuário" />
+          </Col>
+          <Col className="d-flex justify-content-end align-items-center">
+            <span onClick={handleClose} className="material-symbols-outlined close-icon">
+              close
+            </span>
+          </Col>
+        </Row>
         <Modal.Body>
-          <BaseTextField label="Nome" />
-          <BaseTextField label="Endereço" />
-          <BaseTextField label="Cidade" />
-          <BaseTextField label="Email" />
+          <BaseTextField label="Nome" onChange={setUserName} />
+          <BaseTextField label="Endereço" onChange={setUserAddress} />
+          <BaseTextField label="Cidade" onChange={setUserCity} />
+          <BaseTextField label="Email" onChange={setUserEmail} />
         </Modal.Body>
         <div className="d-flex justify-content-center pb-3">
           <BaseButtonForm title="Close" color="red" click={handleClose} />
