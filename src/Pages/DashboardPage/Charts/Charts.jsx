@@ -1,14 +1,57 @@
-import React from 'react';
 import Chart from 'react-apexcharts';
 import { Card, Row, Col } from 'react-bootstrap';
 import './Charts.css';
+import React, { useEffect, useState } from 'react';
+import api from '../../../services/api.js';
+import { Link } from 'react-router-dom';
 
 function Charts() {
+  const [users, setUsers] = useState([]);
+  const [books, setBooks] = useState([]);
+  const [publishers, setPublishers] = useState([]);
+  const [rents, setRents] = useState([]);
+  const [mostRentedBooks, setMostRentedBooks] = useState([]);
+
+  const getUsers = async () => {
+    const { data } = await api.get('usuarios');
+    setUsers(data);
+  };
+
+  const getBooks = async () => {
+    const { data } = await api.get('livros');
+    setBooks(data);
+  };
+
+  const getPublishers = async () => {
+    const { data } = await api.get('editoras');
+    setPublishers(data);
+  };
+
+  const getRents = async () => {
+    const { data } = await api.get('alugueis');
+    setRents(data);
+  };
+  const getMostRentedBooks = () => {
+    api.get('maisalugados').then(({ data }) => {
+      setMostRentedBooks(data);
+    });
+  };
+
+  useEffect(() => {
+    getUsers();
+    getBooks();
+    getPublishers();
+    getRents();
+    getMostRentedBooks();
+  }, []);
+
+  const dataChart = mostRentedBooks.slice(0, 5);
+
   const options = {
     series: [
       {
         name: 'Total',
-        data: [400, 430, 448, 470, 540]
+        data: dataChart.map((book) => book.totalalugado)
       }
     ],
     colors: ['#198754'],
@@ -22,11 +65,14 @@ function Charts() {
         horizontal: true
       }
     },
+    fill: {
+      opacity: 1
+    },
     dataLabels: {
       enabled: false
     },
     xaxis: {
-      categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy']
+      categories: dataChart.map((book) => book.nome)
     }
   };
 
@@ -56,68 +102,68 @@ function Charts() {
     <div className="charts">
       <Row className="mt-4">
         <Col>
-          <div className="d-flex cards align-items-center justify-content-between">
+          <Link to="/users" className="d-flex cards align-items-center justify-content-between">
             <div className="d-flex flex-column">
               <span>Usuários</span>
-              <span>29</span>
+              <span>{users.length}</span>
             </div>
             <div>
               <span className="material-symbols-outlined">person</span>
             </div>
-          </div>
+          </Link>
         </Col>
         <Col>
-          <div className="d-flex cards align-items-center justify-content-between">
+          <Link to="/publishers" className="d-flex cards align-items-center justify-content-between">
             <div className="d-flex flex-column">
               <span>Editoras</span>
-              <span>29</span>
+              <span>{publishers.length}</span>
             </div>
             <div>
               <span className="material-symbols-outlined">local_library</span>
             </div>
-          </div>
+          </Link>
         </Col>
         <Col>
-          <div className="d-flex cards align-items-center justify-content-between">
+          <Link to="/books" className="d-flex cards align-items-center justify-content-between">
             <div className="d-flex flex-column">
               <span>Livros</span>
-              <span>29</span>
+              <span>{books.length}</span>
             </div>
             <div>
               <span className="material-symbols-outlined">auto_stories</span>
             </div>
-          </div>
+          </Link>
         </Col>
         <Col>
-          <div className="d-flex cards align-items-center justify-content-between">
+          <Link to="/rents" className="d-flex cards align-items-center justify-content-between">
             <div className="d-flex flex-column">
               <span>Aluguéis</span>
-              <span>29</span>
+              <span>{rents.length}</span>
             </div>
             <div>
               <span className="material-symbols-outlined">calendar_today</span>
             </div>
-          </div>
+          </Link>
         </Col>
       </Row>
       <Row className="mt-4">
         <Col>
           <Card>
             <Card.Body>
-              <Card.Title>Livros mais alugados</Card.Title>
-              <Card.Text>
+              <Card.Title className="d-flex justify-content-center">Livros mais alugados</Card.Title>
+              <div>
                 <Chart options={options} series={options.series} type="bar" width="100%" height={270} />
-              </Card.Text>
+              </div>
             </Card.Body>
           </Card>
         </Col>
         <Col>
           <Card>
             <Card.Body>
-              <Card.Title>Status de aluguéis</Card.Title>
-              <Card.Text className="d-flex justify-content-center">
+              <Card.Title className="d-flex justify-content-center">Status de aluguéis</Card.Title>
+              <div className="d-flex justify-content-center">
                 <Chart options={donutChart} series={donutChart.series} type="donut" width={450} height={350} />
-              </Card.Text>
+              </div>
             </Card.Body>
           </Card>
         </Col>

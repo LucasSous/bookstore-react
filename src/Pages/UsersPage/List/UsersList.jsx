@@ -9,6 +9,7 @@ function UsersList() {
       setUsers(data);
     });
 
+    console.log(users);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
