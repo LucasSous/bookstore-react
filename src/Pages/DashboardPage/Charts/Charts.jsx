@@ -1,35 +1,16 @@
 import Chart from 'react-apexcharts';
 import { Card, Row, Col } from 'react-bootstrap';
-import './Charts.css';
 import React, { useEffect, useState } from 'react';
 import api from '../../../services/api.js';
-import { Link } from 'react-router-dom';
 
 function Charts() {
-  const [users, setUsers] = useState([]);
-  const [books, setBooks] = useState([]);
-  const [publishers, setPublishers] = useState([]);
   const [rents, setRents] = useState([]);
   const [mostRentedBooks, setMostRentedBooks] = useState([]);
 
-  const getUsers = async () => {
-    const { data } = await api.get('usuarios');
-    setUsers(data);
-  };
-
-  const getBooks = async () => {
-    const { data } = await api.get('livros');
-    setBooks(data);
-  };
-
-  const getPublishers = async () => {
-    const { data } = await api.get('editoras');
-    setPublishers(data);
-  };
-
-  const getRents = async () => {
-    const { data } = await api.get('alugueis');
-    setRents(data);
+  const getRents = () => {
+    api.get('alugueis').then(({ data }) => {
+      setRents(data);
+    });
   };
   const getMostRentedBooks = () => {
     api.get('maisalugados').then(({ data }) => {
@@ -37,10 +18,29 @@ function Charts() {
     });
   };
 
+  function filterOnDeadline(obj) {
+    if ('data_devolucao' in obj && obj.data_devolucao <= obj.data_previsao) {
+      return true;
+    }
+  }
+
+  function filterNotReturned(obj) {
+    if ('data_devolucao' in obj && obj.data_devolucao === null) {
+      return true;
+    }
+  }
+
+  function filterOnDelay(obj) {
+    if ('data_devolucao' in obj && obj.data_devolucao > obj.data_previsao) {
+      return true;
+    }
+  }
+
+  var onTime = rents.filter(filterOnDeadline);
+  var notReturned = rents.filter(filterNotReturned);
+  var onDelay = rents.filter(filterOnDelay);
+
   useEffect(() => {
-    getUsers();
-    getBooks();
-    getPublishers();
     getRents();
     getMostRentedBooks();
   }, []);
@@ -77,7 +77,7 @@ function Charts() {
   };
 
   const donutChart = {
-    series: [44, 55, 41],
+    series: [notReturned.length, onTime.length, onDelay.length],
     chart: {
       type: 'donut'
     },
@@ -100,52 +100,6 @@ function Charts() {
 
   return (
     <div className="charts">
-      <Row className="mt-4">
-        <Col>
-          <Link to="/users" className="d-flex cards align-items-center justify-content-between">
-            <div className="d-flex flex-column">
-              <span>Usuários</span>
-              <span>{users.length}</span>
-            </div>
-            <div>
-              <span className="material-symbols-outlined">person</span>
-            </div>
-          </Link>
-        </Col>
-        <Col>
-          <Link to="/publishers" className="d-flex cards align-items-center justify-content-between">
-            <div className="d-flex flex-column">
-              <span>Editoras</span>
-              <span>{publishers.length}</span>
-            </div>
-            <div>
-              <span className="material-symbols-outlined">local_library</span>
-            </div>
-          </Link>
-        </Col>
-        <Col>
-          <Link to="/books" className="d-flex cards align-items-center justify-content-between">
-            <div className="d-flex flex-column">
-              <span>Livros</span>
-              <span>{books.length}</span>
-            </div>
-            <div>
-              <span className="material-symbols-outlined">auto_stories</span>
-            </div>
-          </Link>
-        </Col>
-        <Col>
-          <Link to="/rents" className="d-flex cards align-items-center justify-content-between">
-            <div className="d-flex flex-column">
-              <span>Aluguéis</span>
-              <span>{rents.length}</span>
-            </div>
-            <div>
-              <span className="material-symbols-outlined">calendar_today</span>
-            </div>
-          </Link>
-        </Col>
-      </Row>
       <Row className="mt-4">
         <Col>
           <Card>
