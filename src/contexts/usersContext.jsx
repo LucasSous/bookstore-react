@@ -1,5 +1,6 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import api from '../services/api';
+import { toast } from 'react-toastify';
 
 export const UsersContext = createContext();
 
@@ -9,6 +10,7 @@ function UsersContextProvider({ children }) {
   const [userAddress, setUserAddress] = useState('');
   const [userCity, setUserCity] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [users, setUsers] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -18,15 +20,30 @@ function UsersContextProvider({ children }) {
   const cityHandler = (event) => setUserCity(event.target.value);
   const emailHandler = (event) => setUserEmail(event.target.value);
 
-  const saveUser = () => {
-    api.post('usuario', {
-      nome: userName,
-      endereco: userAddress,
-      cidade: userCity,
-      email: userEmail
-    });
+  useEffect(() => {
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    setShow(false);
+  const getUser = () => {
+    api.get('usuarios').then(({ data }) => {
+      setUsers(data);
+    });
+  };
+
+  const saveUser = () => {
+    api
+      .post('usuario', {
+        nome: userName,
+        endereco: userAddress,
+        cidade: userCity,
+        email: userEmail
+      })
+      .then((response) => {
+        if (response !== null) {
+          return setShow(false), getUser(), toast.success('Salvo com sucesso!');
+        }
+      });
   };
 
   return (
@@ -48,7 +65,8 @@ function UsersContextProvider({ children }) {
         addressHandler,
         cityHandler,
         emailHandler,
-        saveUser
+        saveUser,
+        users
       }}>
       {children}
     </UsersContext.Provider>

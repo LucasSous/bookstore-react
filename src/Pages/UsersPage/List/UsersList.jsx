@@ -1,16 +1,10 @@
 import './UsersList.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { UsersContext } from '../../../contexts/usersContext';
 import api from '../../../services/api.js';
 
 function UsersList() {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    api.get('usuarios').then(({ data }) => {
-      setUsers(data);
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { users } = useContext(UsersContext);
 
   return (
     <div className="users-list mt-4">
