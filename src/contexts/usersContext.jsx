@@ -6,19 +6,81 @@ export const UsersContext = createContext();
 
 function UsersContextProvider({ children }) {
   const [show, setShow] = useState(false);
-  const [userName, setUserName] = useState('');
-  const [userAddress, setUserAddress] = useState('');
-  const [userCity, setUserCity] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [email, setEmail] = useState('');
   const [users, setUsers] = useState('');
+  const [titleForm, setTitleForm] = useState('');
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    if (name) {
+      setName('');
+    }
+    if (address) {
+      setAddress('');
+    }
+    if (city) {
+      setCity('');
+    }
+    if (email) {
+      setEmail('');
+    }
+    if (id) {
+      setId('');
+    }
+    setShow(false);
+  };
 
-  const nameHandler = (event) => setUserName(event.target.value);
-  const addressHandler = (event) => setUserAddress(event.target.value);
-  const cityHandler = (event) => setUserCity(event.target.value);
-  const emailHandler = (event) => setUserEmail(event.target.value);
+  const handleShow = () => {
+    setTitleForm('Novo usuário');
+    setShow(true);
+  };
+
+  const closeDeleteConfirm = () => {
+    if (name) {
+      setName('');
+    }
+    if (address) {
+      setAddress('');
+    }
+    if (city) {
+      setCity('');
+    }
+    if (email) {
+      setEmail('');
+    }
+    if (id) {
+      setId('');
+    }
+    setShowDeleteConfirm(false);
+  };
+
+  const nameHandler = (event) => setName(event.target.value);
+  const addressHandler = (event) => setAddress(event.target.value);
+  const cityHandler = (event) => setCity(event.target.value);
+  const emailHandler = (event) => setEmail(event.target.value);
+
+  const handlerEdit = (userId, userName, userAddress, userCity, userEmail) => {
+    setName(userName);
+    setAddress(userAddress);
+    setCity(userCity);
+    setEmail(userEmail);
+    setId(userId);
+    setTitleForm('Editar Usuário');
+    setShow(true);
+  };
+
+  const handlerDelete = (userId, userName, userAddress, userCity, userEmail) => {
+    setName(userName);
+    setAddress(userAddress);
+    setCity(userCity);
+    setEmail(userEmail);
+    setId(userId);
+    setShowDeleteConfirm(true);
+  };
 
   useEffect(() => {
     getUser();
@@ -31,17 +93,52 @@ function UsersContextProvider({ children }) {
     });
   };
 
-  const saveUser = () => {
+  const saveUser = (event) => {
+    event.preventDefault();
+    if (id) {
+      api
+        .put('usuario', {
+          id: id,
+          nome: name,
+          endereco: address,
+          cidade: city,
+          email: email
+        })
+        .then((response) => {
+          if (response !== null) {
+            return handleClose(), getUser(), toast.success('Editado com sucesso!');
+          }
+        });
+    } else {
+      api
+        .post('usuario', {
+          nome: name,
+          endereco: address,
+          cidade: city,
+          email: email
+        })
+        .then((response) => {
+          if (response !== null) {
+            return handleClose(), getUser(), toast.success('Salvo com sucesso!');
+          }
+        });
+    }
+  };
+
+  const deleteUser = () => {
     api
-      .post('usuario', {
-        nome: userName,
-        endereco: userAddress,
-        cidade: userCity,
-        email: userEmail
+      .delete('usuario', {
+        data: {
+          id: id,
+          nome: name,
+          endereco: address,
+          cidade: city,
+          email: email
+        }
       })
       .then((response) => {
         if (response !== null) {
-          return setShow(false), getUser(), toast.success('Salvo com sucesso!');
+          return closeDeleteConfirm(), getUser(), toast.success('Deletado com sucesso!');
         }
       });
   };
@@ -52,21 +149,30 @@ function UsersContextProvider({ children }) {
         handleShow,
         handleClose,
         show,
-        userName,
-        setUserName,
-        userAddress,
-        setUserAddress,
-        userCity,
-        setUserCity,
-        userEmail,
-        setUserEmail,
+        id,
+        setId,
+        name,
+        setName,
+        address,
+        setAddress,
+        city,
+        setCity,
+        email,
+        setEmail,
         nameHandler,
-        addressHandler,
         addressHandler,
         cityHandler,
         emailHandler,
         saveUser,
-        users
+        users,
+        handlerEdit,
+        handlerDelete,
+        titleForm,
+        setTitleForm,
+        showDeleteConfirm,
+        setShowDeleteConfirm,
+        deleteUser,
+        closeDeleteConfirm
       }}>
       {children}
     </UsersContext.Provider>

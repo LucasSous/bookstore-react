@@ -1,10 +1,13 @@
 import './UsersList.css';
 import React, { useContext } from 'react';
 import { UsersContext } from '../../../contexts/usersContext';
-import api from '../../../services/api.js';
+import DeleteConfirmModal from '../../../components/BaseDeleteConfirmModal/DeleteConfirmModal';
 
 function UsersList() {
-  const { users } = useContext(UsersContext);
+  const { users, handlerEdit, handlerDelete, showDeleteConfirm, closeDeleteConfirm, deleteUser } =
+    useContext(UsersContext);
+
+  const show = true;
 
   return (
     <div className="users-list mt-4">
@@ -33,10 +36,16 @@ function UsersList() {
                 <td>{user.cidade}</td>
                 <td>{user.email}</td>
                 <td>
-                  <span className="material-symbols-outlined btn-action" title="Editar">
+                  <span
+                    onClick={() => handlerEdit(user.id, user.nome, user.endereco, user.cidade, user.email)}
+                    className="material-symbols-outlined btn-action"
+                    title="Editar">
                     edit
                   </span>
-                  <span className="material-symbols-outlined btn-action" title="Deletar">
+                  <span
+                    onClick={() => handlerDelete(user.id, user.nome, user.endereco, user.cidade, user.email)}
+                    className="material-symbols-outlined btn-action"
+                    title="Deletar">
                     delete
                   </span>
                 </td>
@@ -56,6 +65,13 @@ function UsersList() {
           </div>
         </div>
       )}
+      <DeleteConfirmModal
+        show={showDeleteConfirm}
+        onHide={closeDeleteConfirm}
+        message="Tem certeza que deseja deletar este usuário?"
+        clickCancel={closeDeleteConfirm}
+        clickConfirm={deleteUser}
+      />
     </div>
   );
 }

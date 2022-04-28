@@ -105,9 +105,22 @@ function Charts() {
           <Card>
             <Card.Body>
               <Card.Title className="d-flex justify-content-center">Livros mais alugados</Card.Title>
-              <div>
-                <Chart options={options} series={options.series} type="bar" width="100%" height={270} />
-              </div>
+              {mostRentedBooks.length ? (
+                <div>
+                  <Chart options={options} series={options.series} type="bar" width="100%" height={270} />
+                </div>
+              ) : (
+                <div>
+                  <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-center mt-3">
+                    <span>Carregando dados...</span>
+                  </div>
+                </div>
+              )}
             </Card.Body>
           </Card>
         </Col>
@@ -115,9 +128,22 @@ function Charts() {
           <Card>
             <Card.Body>
               <Card.Title className="d-flex justify-content-center">Status de aluguéis</Card.Title>
-              <div className="d-flex justify-content-center">
-                <Chart options={donutChart} series={donutChart.series} type="donut" width={450} height={350} />
-              </div>
+              {rents.length ? (
+                <div className="d-flex justify-content-center">
+                  <Chart options={donutChart} series={donutChart.series} type="donut" width={450} height={350} />
+                </div>
+              ) : (
+                <div>
+                  <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-center mt-3">
+                    <span>Carregando dados...</span>
+                  </div>
+                </div>
+              )}
             </Card.Body>
           </Card>
         </Col>
