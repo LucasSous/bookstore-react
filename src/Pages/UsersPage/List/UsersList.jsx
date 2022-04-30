@@ -7,8 +7,6 @@ function UsersList() {
   const { users, handlerEdit, handlerDelete, showDeleteConfirm, closeDeleteConfirm, deleteUser } =
     useContext(UsersContext);
 
-  const show = true;
-
   return (
     <div className="users-list mt-4">
       {users.length ? (

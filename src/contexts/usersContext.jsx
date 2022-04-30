@@ -93,8 +93,7 @@ function UsersContextProvider({ children }) {
     });
   };
 
-  const saveUser = (event) => {
-    event.preventDefault();
+  const saveUser = (data) => {
     if (id) {
       api
         .put('usuario', {
@@ -112,10 +111,10 @@ function UsersContextProvider({ children }) {
     } else {
       api
         .post('usuario', {
-          nome: name,
-          endereco: address,
-          cidade: city,
-          email: email
+          nome: data.nome,
+          endereco: data.endereco,
+          cidade: data.cidade,
+          email: data.email
         })
         .then((response) => {
           if (response !== null) {
