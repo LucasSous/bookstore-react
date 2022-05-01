@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import api from '../services/api';
 import { toast } from 'react-toastify';
+import FormModal from '../Pages/UsersPage/FormModal/FormModal';
 
 export const UsersContext = createContext();
 
@@ -8,26 +9,13 @@ function UsersContextProvider({ children }) {
   const [show, setShow] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [id, setId] = useState('');
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [email, setEmail] = useState('');
   const [users, setUsers] = useState('');
   const [titleForm, setTitleForm] = useState('');
+  const [userDefautFormValues, setUserDefaultFormValues] = useState({});
+  const [userDeleteValues, setUserDeletValues] = useState({});
 
   const handleClose = () => {
-    if (name) {
-      setName('');
-    }
-    if (address) {
-      setAddress('');
-    }
-    if (city) {
-      setCity('');
-    }
-    if (email) {
-      setEmail('');
-    }
+    setUserDefaultFormValues({});
     if (id) {
       setId('');
     }
@@ -40,45 +28,34 @@ function UsersContextProvider({ children }) {
   };
 
   const closeDeleteConfirm = () => {
-    if (name) {
-      setName('');
-    }
-    if (address) {
-      setAddress('');
-    }
-    if (city) {
-      setCity('');
-    }
-    if (email) {
-      setEmail('');
-    }
     if (id) {
       setId('');
     }
     setShowDeleteConfirm(false);
   };
 
-  const nameHandler = (event) => setName(event.target.value);
-  const addressHandler = (event) => setAddress(event.target.value);
-  const cityHandler = (event) => setCity(event.target.value);
-  const emailHandler = (event) => setEmail(event.target.value);
-
   const handlerEdit = (userId, userName, userAddress, userCity, userEmail) => {
-    setName(userName);
-    setAddress(userAddress);
-    setCity(userCity);
-    setEmail(userEmail);
+    const user = {
+      nome: userName,
+      endereco: userAddress,
+      cidade: userCity,
+      email: userEmail
+    };
+    setUserDefaultFormValues(user);
     setId(userId);
     setTitleForm('Editar Usuário');
     setShow(true);
   };
 
   const handlerDelete = (userId, userName, userAddress, userCity, userEmail) => {
-    setName(userName);
-    setAddress(userAddress);
-    setCity(userCity);
-    setEmail(userEmail);
-    setId(userId);
+    const deleteValues = {
+      id: userId,
+      nome: userName,
+      endereco: userAddress,
+      cidade: userCity,
+      email: userEmail
+    };
+    setUserDeletValues(deleteValues);
     setShowDeleteConfirm(true);
   };
 
@@ -98,10 +75,10 @@ function UsersContextProvider({ children }) {
       api
         .put('usuario', {
           id: id,
-          nome: name,
-          endereco: address,
-          cidade: city,
-          email: email
+          nome: data.nome,
+          endereco: data.endereco,
+          cidade: data.cidade,
+          email: data.email
         })
         .then((response) => {
           if (response !== null) {
@@ -127,13 +104,7 @@ function UsersContextProvider({ children }) {
   const deleteUser = () => {
     api
       .delete('usuario', {
-        data: {
-          id: id,
-          nome: name,
-          endereco: address,
-          cidade: city,
-          email: email
-        }
+        data: userDeleteValues
       })
       .then((response) => {
         if (response !== null) {
@@ -150,18 +121,6 @@ function UsersContextProvider({ children }) {
         show,
         id,
         setId,
-        name,
-        setName,
-        address,
-        setAddress,
-        city,
-        setCity,
-        email,
-        setEmail,
-        nameHandler,
-        addressHandler,
-        cityHandler,
-        emailHandler,
         saveUser,
         users,
         handlerEdit,
@@ -171,9 +130,11 @@ function UsersContextProvider({ children }) {
         showDeleteConfirm,
         setShowDeleteConfirm,
         deleteUser,
-        closeDeleteConfirm
+        closeDeleteConfirm,
+        userDefautFormValues
       }}>
       {children}
+      {show && <FormModal />}
     </UsersContext.Provider>
   );
 }

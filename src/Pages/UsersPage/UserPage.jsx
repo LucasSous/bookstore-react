@@ -22,7 +22,6 @@ function UserPage() {
           </Col>
         </Row>
         <UsersList />
-        <FormModal />
       </UsersContextProvider>
     </div>
   );

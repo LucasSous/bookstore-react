@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import InputError from '../../../components/InputError/InputError.jsx';
-import api from '../../../services/api';
+import './FormModal.css';
 
 function FormModal() {
   const validationSchema = yup.object().shape({
@@ -17,21 +17,7 @@ function FormModal() {
     email: yup.string().required('Campo obrigatório!').email('Informe um e-mail válido')
   });
 
-  const {
-    show,
-    handleClose,
-    nameHandler,
-    addressHandler,
-    cityHandler,
-    emailHandler,
-    name,
-    address,
-    city,
-    email,
-    saveUser,
-    titleForm,
-    id
-  } = useContext(UsersContext);
+  const { show, handleClose, saveUser, titleForm, userDefautFormValues } = useContext(UsersContext);
 
   const {
     register,
@@ -39,71 +25,73 @@ function FormModal() {
     reset,
     formState: { errors }
   } = useForm({
-    defaultValues: {
-      nome: '',
-      endereco: '',
-      cidade: '',
-      email: ''
-    },
+    defaultValues: userDefautFormValues,
     resolver: yupResolver(validationSchema)
   });
 
-  useEffect(() => {
-    if (id) {
-      getUser();
-    }
-  });
-
-  const getUser = () => {
-    api.get(`usuario/${id}`).then(({ data }) => {
-      reset(data);
-      console.log(data);
-    });
-  };
-
-  function calcelSave() {
+  function calcelForm() {
     handleClose();
-    reset({ nome: '', endereco: '', cidade: '', email: '' });
-  }
-
-  function onError(error) {
-    console.log(error);
+    reset(userDefautFormValues);
   }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={calcelForm}>
       <Row className="px-3 pt-3 pb-2">
         <Col>
           <BaseHeader title={titleForm} />
         </Col>
         <Col className="d-flex justify-content-end align-items-center">
-          <span onClick={handleClose} className="material-symbols-outlined close-icon">
+          <span onClick={calcelForm} className="material-symbols-outlined close-icon">
             close
           </span>
         </Col>
       </Row>
-      <Form onSubmit={handleSubmit(saveUser, onError)}>
+      <Form onSubmit={handleSubmit(saveUser)}>
         <Modal.Body>
           <FloatingLabel controlId="floatingInput" label="Nome*" className="mb-4">
-            <Form.Control type="text" placeholder=".." name="nome" {...register('nome')} />
+            <Form.Control
+              type="text"
+              placeholder=".."
+              name="nome"
+              {...register('nome')}
+              className={errors?.nome && 'errorName'}
+            />
             {errors?.nome && <InputError message={errors.nome?.message} />}
           </FloatingLabel>
 
           <FloatingLabel controlId="floatingInput" label="Endereço*" className="mb-4">
-            <Form.Control type="text" placeholder=".." name="endereco" {...register('endereco')} />
+            <Form.Control
+              type="text"
+              placeholder=".."
+              name="endereco"
+              {...register('endereco')}
+              className={errors?.endereco && 'errorAddress'}
+            />
             {errors?.endereco && <InputError message={errors.endereco?.message} />}
           </FloatingLabel>
           <FloatingLabel controlId="floatingInput" label="Cidade*" className="mb-4">
-            <Form.Control type="text" placeholder=".." name="cidade" {...register('cidade')} />
+            <Form.Control
+              type="text"
+              placeholder=".."
+              name="cidade"
+              {...register('cidade')}
+              className={errors?.cidade && 'errorCity'}
+            />
             {errors?.cidade && <InputError message={errors.cidade?.message} />}
           </FloatingLabel>
           <FloatingLabel controlId="floatingInput" label="Email*" className="mb-4">
-            <Form.Control type="text" placeholder=".." name="email" {...register('email')} />
+            <Form.Control
+              type="text"
+              placeholder=".."
+              name="email"
+              {...register('email')}
+              className={errors?.email && 'errorEmail'}
+            />
             {errors?.email && <InputError message={errors.email?.message} />}
           </FloatingLabel>
         </Modal.Body>
         <div className="d-flex justify-content-center pb-3">
-          <BaseButtonForm title="Cancelar" type="button" color="red" click={calcelSave} />
+          <BaseButtonForm title="Cancelar" type="button" color="red" click={calcelForm} />
           <BaseButtonForm title="Salvar" type="submit" color="blue" />
         </div>
       </Form>
