@@ -9,10 +9,19 @@ function UsersContextProvider({ children }) {
   const [show, setShow] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [id, setId] = useState('');
+  const [usersInitialValues, setUsersInitialValues] = useState('');
   const [users, setUsers] = useState('');
+  const [itensPerPage, setItensPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
   const [titleForm, setTitleForm] = useState('');
   const [userDefautFormValues, setUserDefaultFormValues] = useState({});
   const [userDeleteValues, setUserDeletValues] = useState({});
+  const [search, setSearch] = useState('');
+
+  const pages = Math.ceil(users.length / itensPerPage);
+  const startIndex = currentPage * itensPerPage;
+  const endIndex = startIndex + itensPerPage;
+  const currentItens = users.slice(startIndex, endIndex);
 
   const handleClose = () => {
     setUserDefaultFormValues({});
@@ -67,7 +76,26 @@ function UsersContextProvider({ children }) {
   const getUser = () => {
     api.get('usuarios').then(({ data }) => {
       setUsers(data);
+      setUsersInitialValues(data);
     });
+  };
+
+  const handleSearch = ({ target }) => {
+    setSearch(target.value);
+
+    if (!target.value) {
+      setUsers(usersInitialValues);
+      return;
+    }
+
+    const filterUser = users.filter(
+      (user) =>
+        user.nome.toLowerCase().includes(search.toLowerCase()) ||
+        user.endereco.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setUsers(filterUser);
   };
 
   const saveUser = (data) => {
@@ -131,7 +159,14 @@ function UsersContextProvider({ children }) {
         setShowDeleteConfirm,
         deleteUser,
         closeDeleteConfirm,
-        userDefautFormValues
+        userDefautFormValues,
+        pages,
+        currentItens,
+        currentPage,
+        setCurrentPage,
+        itensPerPage,
+        setItensPerPage,
+        handleSearch
       }}>
       {children}
       {show && <FormModal />}

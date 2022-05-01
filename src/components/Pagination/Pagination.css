@@ -1,0 +1,15 @@
+.button-pagination {
+  background-color: #198754;
+  padding: 2px 8px;
+  color: #fff;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.select-pagination {
+  border: none;
+  background-color: transparent;
+  margin-left: 4px;
+}
