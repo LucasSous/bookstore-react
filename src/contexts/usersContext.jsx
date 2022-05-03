@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 import api from '../services/api';
 import { toast } from 'react-toastify';
 import FormModal from '../Pages/UsersPage/FormModal/FormModal';
+import { toNestError } from '@hookform/resolvers';
 
 export const UsersContext = createContext();
 
@@ -81,8 +82,6 @@ function UsersContextProvider({ children }) {
   };
 
   const handleSearch = ({ target }) => {
-    setSearch(target.value);
-
     if (!target.value) {
       setUsers(usersInitialValues);
       return;
@@ -90,13 +89,20 @@ function UsersContextProvider({ children }) {
 
     const filterUser = users.filter(
       (user) =>
-        user.nome.toLowerCase().includes(search.toLowerCase()) ||
-        user.endereco.toLowerCase().includes(search.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.toLowerCase())
+        user.nome.toLowerCase().includes(target.value) ||
+        user.endereco.toLowerCase().includes(target.value) ||
+        user.email.toLowerCase().includes(target.value)
     );
 
     setUsers(filterUser);
   };
+
+  // const filterUser = Object.values(users).filter(
+  //   (user) =>
+  //     user.nome.toLowerCase().includes(search) ||
+  //     user.endereco.toLowerCase().includes(search) ||
+  //     user.email.toLowerCase().includes(search)
+  // );
 
   const saveUser = (data) => {
     if (id) {
@@ -112,6 +118,10 @@ function UsersContextProvider({ children }) {
           if (response !== null) {
             return handleClose(), getUser(), toast.success('Editado com sucesso!');
           }
+        })
+        .catch((response) => {
+          const error = response.response.data.error;
+          toast.error(error);
         });
     } else {
       api
@@ -125,6 +135,10 @@ function UsersContextProvider({ children }) {
           if (response !== null) {
             return handleClose(), getUser(), toast.success('Salvo com sucesso!');
           }
+        })
+        .catch((response) => {
+          const error = response.response.data.error;
+          toast.error(error);
         });
     }
   };
@@ -138,6 +152,11 @@ function UsersContextProvider({ children }) {
         if (response !== null) {
           return closeDeleteConfirm(), getUser(), toast.success('Deletado com sucesso!');
         }
+      })
+      .catch((response) => {
+        const error = response.response.data.error;
+        toast.error(error);
+        closeDeleteConfirm();
       });
   };
 

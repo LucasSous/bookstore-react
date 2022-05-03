@@ -6,6 +6,7 @@ function Pagination({ pages, currentPage, setCurrentPage, itensPerPage, setItens
       {Array.from(Array(pages), (item, index) => {
         return (
           <button
+            key={index}
             style={index === currentPage ? { backgroundColor: '#10492e' } : null}
             className="button-pagination"
             value={index}
