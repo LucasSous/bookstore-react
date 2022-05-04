@@ -3,12 +3,18 @@ import React, { useContext, useEffect } from 'react';
 import { UsersContext } from '../../../contexts/usersContext';
 import DeleteConfirmModal from '../../../components/BaseDeleteConfirmModal/DeleteConfirmModal';
 import Pagination from '../../../components/Pagination/Pagination';
+import { Col, Row } from 'react-bootstrap';
+import BaseHeader from '../../../components/BaseHeader/BaseHeader';
+import BaseSearch from '../../../components/BaseSearch/BaseSearch';
+import BaseButton from '../../../components/BaseButton/BaseButton';
 
 function UsersList() {
   const {
     users,
     handlerEdit,
     handlerDelete,
+    handleShow,
+    handleSearch,
     showDeleteConfirm,
     closeDeleteConfirm,
     deleteUser,
@@ -17,7 +23,8 @@ function UsersList() {
     currentPage,
     setCurrentPage,
     itensPerPage,
-    setItensPerPage
+    setItensPerPage,
+    loadingTitle
   } = useContext(UsersContext);
 
   useEffect(() => {
@@ -25,10 +32,19 @@ function UsersList() {
   }, [itensPerPage]);
 
   return (
-    <div className="users-list mt-4">
+    <div className="users-list">
+      <Row>
+        <Col>
+          <BaseHeader title="Usuários" />
+        </Col>
+        <Col className="d-flex justify-content-end actions">
+          <BaseSearch change={handleSearch} />
+          <BaseButton title="Adicionar Usuário" click={handleShow} />
+        </Col>
+      </Row>
       {users.length ? (
         <div>
-          <table className="table shadow-sm">
+          <table className="table shadow-sm mt-4">
             <thead>
               <tr>
                 <th className="th-start" scope="col">
@@ -85,7 +101,7 @@ function UsersList() {
             </div>
           </div>
           <div className="d-flex justify-content-center mt-3">
-            <span>Carregando dados...</span>
+            <span>{loadingTitle}...</span>
           </div>
         </div>
       )}

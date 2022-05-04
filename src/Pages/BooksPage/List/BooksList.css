@@ -1,0 +1,7 @@
+.unavailable-book {
+  color: red;
+  border: solid 1px red;
+  border-radius: 20px;
+  width: 100px;
+  text-align: center;
+}

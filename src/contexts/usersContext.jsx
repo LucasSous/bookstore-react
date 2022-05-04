@@ -2,7 +2,6 @@ import { createContext, useState, useEffect } from 'react';
 import api from '../services/api';
 import { toast } from 'react-toastify';
 import FormModal from '../Pages/UsersPage/FormModal/FormModal';
-import { toNestError } from '@hookform/resolvers';
 
 export const UsersContext = createContext();
 
@@ -17,7 +16,8 @@ function UsersContextProvider({ children }) {
   const [titleForm, setTitleForm] = useState('');
   const [userDefautFormValues, setUserDefaultFormValues] = useState({});
   const [userDeleteValues, setUserDeletValues] = useState({});
-  const [search, setSearch] = useState('');
+  const [loadingTitle, setLoadingTitle] = useState('');
+  const [targetValue, setTargetValue] = useState('');
 
   const pages = Math.ceil(users.length / itensPerPage);
   const startIndex = currentPage * itensPerPage;
@@ -87,22 +87,33 @@ function UsersContextProvider({ children }) {
       return;
     }
 
-    const filterUser = users.filter(
+    const search = target.value;
+    setTargetValue(target.value);
+
+    const filterUser = usersInitialValues.filter(
       (user) =>
-        user.nome.toLowerCase().includes(target.value) ||
-        user.endereco.toLowerCase().includes(target.value) ||
-        user.email.toLowerCase().includes(target.value)
+        user.nome.toLowerCase().includes(search.toLowerCase()) ||
+        user.endereco.toLowerCase().includes(search.toLowerCase()) ||
+        user.cidade.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.toLowerCase().includes(search.toLowerCase()) ||
+        user.id.toString().includes(search)
     );
 
     setUsers(filterUser);
   };
 
-  // const filterUser = Object.values(users).filter(
-  //   (user) =>
-  //     user.nome.toLowerCase().includes(search) ||
-  //     user.endereco.toLowerCase().includes(search) ||
-  //     user.email.toLowerCase().includes(search)
-  // );
+  useEffect(() => {
+    loading();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [users]);
+
+  const loading = () => {
+    if (targetValue && !(users.length > 0)) {
+      setLoadingTitle('Nenhum usuário encontrado');
+    } else {
+      setLoadingTitle('Carregando dados');
+    }
+  };
 
   const saveUser = (data) => {
     if (id) {
@@ -116,7 +127,9 @@ function UsersContextProvider({ children }) {
         })
         .then((response) => {
           if (response !== null) {
-            return handleClose(), getUser(), toast.success('Editado com sucesso!');
+            handleClose();
+            getUser();
+            toast.success('Editado com sucesso!');
           }
         })
         .catch((response) => {
@@ -133,7 +146,9 @@ function UsersContextProvider({ children }) {
         })
         .then((response) => {
           if (response !== null) {
-            return handleClose(), getUser(), toast.success('Salvo com sucesso!');
+            handleClose();
+            getUser();
+            toast.success('Salvo com sucesso!');
           }
         })
         .catch((response) => {
@@ -150,7 +165,9 @@ function UsersContextProvider({ children }) {
       })
       .then((response) => {
         if (response !== null) {
-          return closeDeleteConfirm(), getUser(), toast.success('Deletado com sucesso!');
+          closeDeleteConfirm();
+          getUser();
+          toast.success('Deletado com sucesso!');
         }
       })
       .catch((response) => {
@@ -185,7 +202,9 @@ function UsersContextProvider({ children }) {
         setCurrentPage,
         itensPerPage,
         setItensPerPage,
-        handleSearch
+        handleSearch,
+        loadingTitle,
+        loading
       }}>
       {children}
       {show && <FormModal />}

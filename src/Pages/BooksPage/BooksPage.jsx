@@ -1,14 +1,15 @@
-import './BooksPage.css'
-import BaseHeader from '../../components/BaseHeader/BaseHeader.jsx';
+import './BooksPage.css';
+import BooksList from './List/BooksList';
+import BooksContextProvider from '../../contexts/booksContext';
 
 function BooksPage() {
-
-    return(
-        <div className="books-page">
-            <BaseHeader title="Livros"/>
-        </div>
-    )
-
+  return (
+    <div className="books-page">
+      <BooksContextProvider>
+        <BooksList />
+      </BooksContextProvider>
+    </div>
+  );
 }
 
 export default BooksPage;
