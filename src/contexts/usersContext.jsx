@@ -18,6 +18,12 @@ function UsersContextProvider({ children }) {
   const [userDeleteValues, setUserDeletValues] = useState({});
   const [loadingTitle, setLoadingTitle] = useState('');
   const [targetValue, setTargetValue] = useState('');
+  const [isAscending, setIsAscending] = useState(false);
+  const [isActiveId, setIsActiveId] = useState(false);
+  const [isActiveName, setIsActiveName] = useState(false);
+  const [isActiveAddress, setIsActiveAddress] = useState(false);
+  const [isActiveCity, setIsActiveCity] = useState(false);
+  const [isActiveEmail, setIsActiveEmail] = useState(false);
 
   const pages = Math.ceil(users.length / itensPerPage);
   const startIndex = currentPage * itensPerPage;
@@ -76,8 +82,11 @@ function UsersContextProvider({ children }) {
 
   const getUser = () => {
     api.get('usuarios').then(({ data }) => {
-      setUsers(data);
-      setUsersInitialValues(data);
+      const ordination = data.sort((a, b) => {
+        return a.id - b.id;
+      });
+      setUsers(ordination);
+      setUsersInitialValues(ordination);
     });
   };
 
@@ -177,6 +186,151 @@ function UsersContextProvider({ children }) {
       });
   };
 
+  const ordinationId = () => {
+    if (!isActiveId) {
+      setIsActiveId(true);
+      const sorted = users.sort((a, b) => {
+        return a.id - b.id;
+      });
+      setUsers(sorted);
+      setIsAscending(true);
+    }
+    if (isActiveId && isAscending) {
+      const sorted = users.sort((a, b) => {
+        return b.id - a.id;
+      });
+      setUsers(sorted);
+      setIsAscending(false);
+    }
+    if (isActiveId && !isAscending) {
+      const sorted = users.sort((a, b) => {
+        return a.id - b.id;
+      });
+      setUsers(sorted);
+      setIsActiveId(false);
+    }
+    setIsActiveName(false);
+    setIsActiveAddress(false);
+    setIsActiveCity(false);
+    setIsActiveEmail(false);
+  };
+
+  const ordinationName = () => {
+    if (!isActiveName) {
+      setIsActiveName(true);
+      const sorted = users.sort((a, b) => {
+        return a.nome.localeCompare(b.nome);
+      });
+      setUsers(sorted);
+      setIsAscending(true);
+    }
+    if (isActiveName && isAscending) {
+      const sorted = users.sort((a, b) => {
+        return b.nome.localeCompare(a.nome);
+      });
+      setUsers(sorted);
+      setIsAscending(false);
+    }
+    if (isActiveName && !isAscending) {
+      const sorted = users.sort((a, b) => {
+        return a.id - b.id;
+      });
+      setUsers(sorted);
+      setIsActiveName(false);
+    }
+    setIsActiveId(false);
+    setIsActiveAddress(false);
+    setIsActiveCity(false);
+    setIsActiveEmail(false);
+  };
+
+  const ordinationAddress = () => {
+    if (!isActiveAddress) {
+      setIsActiveAddress(true);
+      const sorted = users.sort((a, b) => {
+        return a.endereco.localeCompare(b.endereco);
+      });
+      setUsers(sorted);
+      setIsAscending(true);
+    }
+    if (isActiveAddress && isAscending) {
+      const sorted = users.sort((a, b) => {
+        return b.endereco.localeCompare(a.endereco);
+      });
+      setUsers(sorted);
+      setIsAscending(false);
+    }
+    if (isActiveAddress && !isAscending) {
+      const sorted = users.sort((a, b) => {
+        return a.id - b.id;
+      });
+      setUsers(sorted);
+      setIsActiveAddress(false);
+    }
+    setIsActiveId(false);
+    setIsActiveName(false);
+    setIsActiveCity(false);
+    setIsActiveEmail(false);
+  };
+
+  const ordinationCity = () => {
+    if (!isActiveCity) {
+      setIsActiveCity(true);
+      const sorted = users.sort((a, b) => {
+        return a.cidade.localeCompare(b.cidade);
+      });
+      setUsers(sorted);
+      setIsAscending(true);
+    }
+    if (isActiveCity && isAscending) {
+      const sorted = users.sort((a, b) => {
+        return b.cidade.localeCompare(a.cidade);
+      });
+      setUsers(sorted);
+      setIsAscending(false);
+    }
+    if (isActiveCity && !isAscending) {
+      const sorted = users.sort((a, b) => {
+        return a.id - b.id;
+      });
+      setUsers(sorted);
+      setIsActiveCity(false);
+    }
+    setIsActiveId(false);
+    setIsActiveName(false);
+    setIsActiveAddress(false);
+    setIsActiveEmail(false);
+  };
+
+  const ordinationEmail = () => {
+    if (!isActiveEmail) {
+      setIsActiveEmail(true);
+      const sorted = users.sort((a, b) => {
+        return a.email.localeCompare(b.email);
+      });
+      setUsers(sorted);
+      setIsAscending(true);
+    }
+    if (isActiveEmail && isAscending) {
+      const sorted = users.sort((a, b) => {
+        return b.email.localeCompare(a.email);
+      });
+      setUsers(sorted);
+      setIsAscending(false);
+    }
+    if (isActiveEmail && !isAscending) {
+      const sorted = users.sort((a, b) => {
+        return a.id - b.id;
+      });
+      setUsers(sorted);
+      setIsActiveEmail(false);
+    }
+    setIsActiveId(false);
+    setIsActiveName(false);
+    setIsActiveAddress(false);
+    setIsActiveCity(false);
+  };
+
   return (
     <UsersContext.Provider
       value={{
@@ -204,7 +358,18 @@ function UsersContextProvider({ children }) {
         setItensPerPage,
         handleSearch,
         loadingTitle,
-        loading
+        loading,
+        isAscending,
+        ordinationId,
+        isActiveId,
+        ordinationName,
+        isActiveName,
+        ordinationAddress,
+        isActiveAddress,
+        ordinationCity,
+        isActiveCity,
+        ordinationEmail,
+        isActiveEmail
       }}>
       {children}
       {show && <FormModal />}

@@ -1,5 +1,5 @@
 import './UsersList.css';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UsersContext } from '../../../contexts/usersContext';
 import DeleteConfirmModal from '../../../components/BaseDeleteConfirmModal/DeleteConfirmModal';
 import Pagination from '../../../components/Pagination/Pagination';
@@ -24,7 +24,18 @@ function UsersList() {
     setCurrentPage,
     itensPerPage,
     setItensPerPage,
-    loadingTitle
+    loadingTitle,
+    ordinationId,
+    isActiveId,
+    isAscending,
+    ordinationName,
+    isActiveName,
+    ordinationAddress,
+    isActiveAddress,
+    ordinationCity,
+    isActiveCity,
+    ordinationEmail,
+    isActiveEmail
   } = useContext(UsersContext);
 
   useEffect(() => {
@@ -47,13 +58,66 @@ function UsersList() {
           <table className="table shadow-sm mt-4">
             <thead>
               <tr>
-                <th className="th-start" scope="col">
-                  Cód.
+                <th onClick={ordinationId} className="th-start" scope="col">
+                  <div className="d-flex ">
+                    <span>Cód.</span>
+                    {!isActiveId ? (
+                      <span className="material-symbols-outlined icon-sync">sync_alt</span>
+                    ) : (
+                      <span className={`material-symbols-outlined icon-arrow ${!isAscending ? 'rotate-icon' : null}`}>
+                        north
+                      </span>
+                    )}
+                  </div>
                 </th>
-                <th scope="col">Nome</th>
-                <th scope="col">Endereço</th>
-                <th scope="col">Cidade</th>
-                <th scope="col">Email</th>
+                <th onClick={ordinationName} scope="col">
+                  <div className="d-flex">
+                    <span>Nome</span>
+                    {!isActiveName ? (
+                      <span className="material-symbols-outlined icon-sync">sync_alt</span>
+                    ) : (
+                      <span className={`material-symbols-outlined icon-arrow ${!isAscending ? 'rotate-icon' : null}`}>
+                        north
+                      </span>
+                    )}
+                  </div>
+                </th>
+                <th onClick={ordinationAddress} scope="col">
+                  <div className="d-flex">
+                    <span>Endereço</span>
+                    {!isActiveAddress ? (
+                      <span className="material-symbols-outlined icon-sync">sync_alt</span>
+                    ) : (
+                      <span className={`material-symbols-outlined icon-arrow ${!isAscending ? 'rotate-icon' : null}`}>
+                        north
+                      </span>
+                    )}
+                  </div>
+                </th>
+                <th onClick={ordinationCity} scope="col">
+                  <div className="d-flex">
+                    <span>Cidade</span>
+                    {!isActiveCity ? (
+                      <span className="material-symbols-outlined icon-sync">sync_alt</span>
+                    ) : (
+                      <span className={`material-symbols-outlined icon-arrow ${!isAscending ? 'rotate-icon' : null}`}>
+                        north
+                      </span>
+                    )}
+                  </div>
+                </th>
+                <th onClick={ordinationEmail} scope="col">
+                  <div className="d-flex">
+                    <span>Email</span>
+                    {!isActiveEmail ? (
+                      <span className="material-symbols-outlined icon-sync">sync_alt</span>
+                    ) : (
+                      <span className={`material-symbols-outlined icon-arrow ${!isAscending ? 'rotate-icon' : null}`}>
+                        north
+                      </span>
+                    )}
+                  </div>
+                </th>
                 <th className="th-end" scope="col">
                   Ações
                 </th>

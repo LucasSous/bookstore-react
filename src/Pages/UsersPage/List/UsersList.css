@@ -22,6 +22,14 @@
   font-size: 0.9rem;
 }
 
+.table th {
+  cursor: pointer;
+}
+
+.table th:hover {
+  color: #fff;
+}
+
 .table .items-tr:hover {
   background-color: rgb(240, 240, 240);
 }
@@ -37,4 +45,19 @@
 
 .loading {
   margin-top: 250px;
+}
+
+.icon-sync {
+  transform: rotate(90deg);
+  font-size: 18px;
+}
+
+.icon-arrow {
+  font-size: 18px;
+  padding-top: 2px;
+  transition: 0.2s;
+}
+
+.rotate-icon {
+  transform: rotate(180deg);
 }
