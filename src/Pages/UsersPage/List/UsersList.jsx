@@ -1,5 +1,5 @@
 import './UsersList.css';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UsersContext } from '../../../contexts/usersContext';
 import DeleteConfirmModal from '../../../components/BaseDeleteConfirmModal/DeleteConfirmModal';
 import Pagination from '../../../components/Pagination/Pagination';
@@ -40,6 +40,7 @@ function UsersList() {
 
   useEffect(() => {
     setCurrentPage(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itensPerPage]);
 
   return (

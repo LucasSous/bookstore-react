@@ -1,22 +1,27 @@
 import BaseButtonForm from '../../../components/BaseButtonForm/BaseButtonForm';
 import { Modal, Form, Col, Row, FloatingLabel, Button } from 'react-bootstrap';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BaseHeader from '../../../components/BaseHeader/BaseHeader';
 import { BooksContext } from '../../../contexts/booksContext';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import InputError from '../../../components/InputError/InputError.jsx';
+import api from '../../../services/api';
+import './FormModal.css';
 
 function FormModal() {
   const validationSchema = yup.object().shape({
     nome: yup.string().required('Campo obrigatório!'),
-    endereco: yup.string().required('Campo obrigatório!'),
-    cidade: yup.string().required('Campo obrigatório!'),
-    email: yup.string().required('Campo obrigatório!').email('Informe um e-mail válido')
+    editora: yup.string().required('Campo obrigatório!'),
+    autor: yup.string().required('Campo obrigatório!'),
+    lancamento: yup.number().required('Campo obrigatório!'),
+    quantidade: yup.number().required('Campo obrigatório!')
   });
 
-  const { show, handleClose } = useContext(BooksContext);
+  const { show, handleClose, saveBook, titleForm, bookDefaultFormValues } = useContext(BooksContext);
+
+  const [publishers, setPublishers] = useState([]);
 
   const {
     register,
@@ -24,18 +29,30 @@ function FormModal() {
     reset,
     formState: { errors }
   } = useForm({
+    defaultValues: bookDefaultFormValues,
     resolver: yupResolver(validationSchema)
   });
 
   function calcelForm() {
     handleClose();
+    reset(bookDefaultFormValues);
   }
+
+  useEffect(() => {
+    getPublishers();
+  }, []);
+
+  const getPublishers = () => {
+    api.get('editoras').then(({ data }) => {
+      setPublishers(data);
+    });
+  };
 
   return (
     <Modal show={show} onHide={calcelForm}>
       <Row className="px-3 pt-3 pb-2">
         <Col>
-          <BaseHeader title="Novo Livro" />
+          <BaseHeader title={titleForm} />
         </Col>
         <Col className="d-flex justify-content-end align-items-center">
           <span onClick={calcelForm} className="material-symbols-outlined close-icon">
@@ -43,7 +60,7 @@ function FormModal() {
           </span>
         </Col>
       </Row>
-      <Form>
+      <Form onSubmit={handleSubmit(saveBook)}>
         <Modal.Body>
           <FloatingLabel controlId="floatingInput" label="Nome*" className="mb-4">
             <Form.Control
@@ -57,21 +74,23 @@ function FormModal() {
           </FloatingLabel>
 
           <FloatingLabel controlId="floatingInput" label="Editora*" className="mb-4">
-            <Form.Select>
+            <Form.Select name="editora" {...register('editora')} className={errors?.editora && 'errorPublisher'}>
               <option></option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              {publishers.map((publisher) => (
+                <option key={publisher.id} value={publisher.id}>
+                  {publisher.nome}
+                </option>
+              ))}
             </Form.Select>
-            {errors?.endereco && <InputError message={errors.editora?.message} />}
+            {errors?.editora && <InputError message={errors.editora?.message} />}
           </FloatingLabel>
-          <FloatingLabel controlId="floatingInput" label="Altor*" className="mb-4">
+          <FloatingLabel controlId="floatingInput" label="Autor*" className="mb-4">
             <Form.Control
               type="text"
               placeholder=".."
               name="autor"
               {...register('autor')}
-              className={errors?.autor && 'errorCity'}
+              className={errors?.autor && 'errorAuthor'}
             />
             {errors?.autor && <InputError message={errors.autor?.message} />}
           </FloatingLabel>
@@ -81,7 +100,7 @@ function FormModal() {
               placeholder=".."
               name="lancamento"
               {...register('lancamento')}
-              className={errors?.lancamento && 'errorlancamento'}
+              className={errors?.lancamento && 'errorReleaseYear'}
             />
             {errors?.lancamento && <InputError message={errors.lancamento?.message} />}
           </FloatingLabel>
@@ -91,7 +110,7 @@ function FormModal() {
               placeholder=".."
               name="quantidade"
               {...register('quantidade')}
-              className={errors?.quantidade && 'errorquantidade'}
+              className={errors?.quantidade && 'errorQuantity'}
             />
             {errors?.quantidade && <InputError message={errors.quantidade?.message} />}
           </FloatingLabel>

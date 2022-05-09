@@ -1,0 +1,24 @@
+.errorName {
+  border-color: rgb(219, 0, 0);
+  background-color: rgba(219, 0, 0, 0.11);
+}
+
+.errorPublisher {
+  border-color: rgb(219, 0, 0);
+  background-color: rgba(219, 0, 0, 0.11);
+}
+
+.errorAuthor {
+  border-color: rgb(219, 0, 0);
+  background-color: rgba(219, 0, 0, 0.11);
+}
+
+.errorReleaseYear {
+  border-color: rgb(219, 0, 0);
+  background-color: rgba(219, 0, 0, 0.11);
+}
+
+.errorQuantity {
+  border-color: rgb(219, 0, 0);
+  background-color: rgba(219, 0, 0, 0.11);
+}
