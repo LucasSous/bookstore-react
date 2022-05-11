@@ -3,7 +3,7 @@
   border-radius: 5px;
 }
 
-.table thead {
+.table .thead-users {
   background-color: #1c1c1c;
   color: rgb(194, 194, 194);
   border-radius: 20px;

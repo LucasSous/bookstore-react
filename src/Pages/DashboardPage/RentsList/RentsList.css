@@ -1,0 +1,10 @@
+.title {
+  font-size: 1.6rem;
+}
+
+.table .thead-dashboard-rents {
+  background-color: #198754;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+}

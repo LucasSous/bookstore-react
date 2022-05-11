@@ -5,3 +5,9 @@
   width: 100px;
   text-align: center;
 }
+
+.table .thead-books {
+  background-color: #1c1c1c;
+  color: rgb(194, 194, 194);
+  border-radius: 20px;
+}

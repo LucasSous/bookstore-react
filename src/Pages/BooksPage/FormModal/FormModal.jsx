@@ -1,5 +1,5 @@
 import BaseButtonForm from '../../../components/BaseButtonForm/BaseButtonForm';
-import { Modal, Form, Col, Row, FloatingLabel, Button } from 'react-bootstrap';
+import { Modal, Form, Col, Row, FloatingLabel } from 'react-bootstrap';
 import React, { useContext, useEffect, useState } from 'react';
 import BaseHeader from '../../../components/BaseHeader/BaseHeader';
 import { BooksContext } from '../../../contexts/booksContext';
@@ -15,11 +15,22 @@ function FormModal() {
     nome: yup.string().required('Campo obrigatório!'),
     editora: yup.string().required('Campo obrigatório!'),
     autor: yup.string().required('Campo obrigatório!'),
-    lancamento: yup.number().required('Campo obrigatório!'),
-    quantidade: yup.number().required('Campo obrigatório!')
+    lancamento: yup
+      .number()
+      .required('Campo obrigatório!')
+      .positive('O número deve ser positivo')
+      .integer('O número deve ser inteiro')
+      .min(1000, 'Ano inválido')
+      .max(new Date().getFullYear(), 'Ano inválido'),
+    quantidade: yup
+      .number()
+      .required('Campo obrigatório!')
+      .positive('O número deve ser positivo')
+      .integer('O número deve ser inteiro')
   });
 
-  const { show, handleClose, saveBook, titleForm, bookDefaultFormValues } = useContext(BooksContext);
+  const { show, handleClose, saveBook, titleForm, bookDefaultFormValues, selectValue, setSelectValue } =
+    useContext(BooksContext);
 
   const [publishers, setPublishers] = useState([]);
 
@@ -74,7 +85,12 @@ function FormModal() {
           </FloatingLabel>
 
           <FloatingLabel controlId="floatingInput" label="Editora*" className="mb-4">
-            <Form.Select name="editora" {...register('editora')} className={errors?.editora && 'errorPublisher'}>
+            <Form.Select
+              value={selectValue}
+              name="editora"
+              {...register('editora')}
+              onChange={(e) => setSelectValue(e.target.value)}
+              className={errors?.editora && 'errorPublisher'}>
               <option></option>
               {publishers.map((publisher) => (
                 <option key={publisher.id} value={publisher.id}>
@@ -96,7 +112,7 @@ function FormModal() {
           </FloatingLabel>
           <FloatingLabel controlId="floatingInput" label="Ano de Lançamento*" className="mb-4">
             <Form.Control
-              type="text"
+              type="number"
               placeholder=".."
               name="lancamento"
               {...register('lancamento')}
@@ -106,7 +122,7 @@ function FormModal() {
           </FloatingLabel>
           <FloatingLabel controlId="floatingInput" label="Quantidade*" className="mb-4">
             <Form.Control
-              type="text"
+              type="number"
               placeholder=".."
               name="quantidade"
               {...register('quantidade')}

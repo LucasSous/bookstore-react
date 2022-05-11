@@ -57,7 +57,7 @@ function UsersList() {
       {users.length ? (
         <div>
           <table className="table shadow-sm mt-4">
-            <thead>
+            <thead className="thead-users">
               <tr>
                 <th onClick={ordinationId} className="th-start" scope="col">
                   <div className="d-flex ">

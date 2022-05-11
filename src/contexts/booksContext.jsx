@@ -25,6 +25,7 @@ function BooksContextProvider({ children }) {
   const [isActiveAuthor, setIsActiveAuthor] = useState(false);
   const [isActiveReleaseYear, setIsActiveReleaseYear] = useState(false);
   const [isActiveQuantity, setIsActiveQuantity] = useState(false);
+  const [selectValue, setSelectValue] = useState('');
 
   const pages = Math.ceil(books.length / itensPerPage);
   const startIndex = currentPage * itensPerPage;
@@ -40,6 +41,9 @@ function BooksContextProvider({ children }) {
     setBookDefaultFormValues({});
     if (id) {
       setId('');
+    }
+    if (selectValue) {
+      setSelectValue('');
     }
     setShow(false);
   };
@@ -60,6 +64,7 @@ function BooksContextProvider({ children }) {
       quantidade: bookQuantity
     };
     setBookDefaultFormValues(book);
+    setSelectValue(bookPublisherId);
     setId(bookId);
     setTitleForm('Editar Livro');
     setShow(true);
@@ -146,7 +151,7 @@ function BooksContextProvider({ children }) {
           if (response !== null) {
             handleClose();
             getBooks();
-            toast.success('Salvo com sucesso!');
+            toast.success('Editado com sucesso!');
           }
         })
         .catch((response) => {
@@ -412,7 +417,9 @@ function BooksContextProvider({ children }) {
         ordinationReleaseYear,
         isActiveReleaseYear,
         ordinationQuantity,
-        isActiveQuantity
+        isActiveQuantity,
+        selectValue,
+        setSelectValue
       }}>
       {children}
       {show && <FormModal />}

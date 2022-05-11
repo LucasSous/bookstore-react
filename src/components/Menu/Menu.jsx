@@ -41,7 +41,7 @@ function Menu() {
         </li>
       </ul>
       <div className="name">
-        <a href="https://github.com/LucasSous" target="_blank">
+        <a href="https://github.com/LucasSous" target="_blank" rel="noopener noreferrer">
           Feito por <span>Lucas Sousa</span>
         </a>
       </div>
