@@ -1,5 +1,5 @@
 import BaseButtonForm from '../../../components/BaseButtonForm/BaseButtonForm';
-import { Modal, Form, Col, Row, FloatingLabel, Button } from 'react-bootstrap';
+import { Modal, Form, Col, Row, FloatingLabel } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import BaseHeader from '../../../components/BaseHeader/BaseHeader';
 import { UsersContext } from '../../../contexts/usersContext';

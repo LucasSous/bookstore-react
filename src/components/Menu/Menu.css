@@ -1,29 +1,72 @@
-.menu {
+.menuActive {
   background-image: linear-gradient(#1c1c1c, #363636);
   width: 180px;
   height: 100%;
   position: fixed;
+  transition: 0.4s;
 }
 
-.menu .logo {
+.menuOff {
+  background-image: linear-gradient(#1c1c1c, #363636);
+  width: 60px;
+  height: 100%;
+  position: fixed;
+  transition: 0.4s;
+}
+
+.button-open {
+  color: #fff;
+  padding: 5px;
+  display: flex;
+  justify-content: right;
+}
+
+.menuOff .button-open {
+  color: #fff;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  border-left: rgba(255, 255, 255, 0) solid 4px;
+  margin-bottom: 30px;
+}
+
+.button-open span {
+  font-size: 2.3rem;
+  cursor: pointer;
+}
+
+.menuOff .logo {
+  display: none;
+}
+
+.logo {
   padding: 15px;
   margin-bottom: 15px;
 }
 
-.menu .logo img {
+.logo img {
   width: 100%;
 }
 
-.menu ul {
+.menuActive ul {
   list-style: none;
   padding: 0;
 }
 
-.menu li:hover {
+.menuOff ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menuActive li:hover {
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0));
 }
 
-.menu li a {
+.menuOff li:hover {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0));
+}
+
+.menuActive li a {
   color: rgb(194, 194, 194);
   text-decoration: none;
   display: block;
@@ -35,14 +78,37 @@
   transition: 0.5s;
 }
 
-.menu li a.active {
+.menuOff li a {
+  color: rgb(194, 194, 194);
+  text-decoration: none;
+  display: block;
+  padding: 12px 0px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: rgba(255, 255, 255, 0) solid 4px;
+  transition: 0.5s;
+}
+
+.menuActive li a.active {
   color: #fff;
   background-image: linear-gradient(to right, #1987543f, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0));
   border-left: 4px solid #198754;
 }
 
-.icon {
+.menuOff li a.active {
+  color: #fff;
+  background-image: linear-gradient(to right, #1987543f, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0));
+  border-left: 4px solid #198754;
+}
+
+.menuActive .icon {
   margin-right: 10px;
+}
+
+.menuOff .icon {
+  font-size: 1.6rem;
 }
 
 .name {

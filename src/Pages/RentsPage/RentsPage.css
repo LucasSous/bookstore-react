@@ -1,4 +1,11 @@
-.rents-page{
-    margin-left: 180px;
-    padding: 20px;
+.rents-page {
+  margin-left: 180px;
+  padding: 20px;
+  transition: 0.4s;
+}
+
+.rents-page-menuOff {
+  margin-left: 60px;
+  padding: 20px;
+  transition: 0.4s;
 }

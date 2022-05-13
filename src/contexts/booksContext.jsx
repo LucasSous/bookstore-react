@@ -15,6 +15,7 @@ function BooksContextProvider({ children }) {
   const [bookDeleteValues, setBookDeletValues] = useState({});
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [id, setId] = useState('');
+  const [totalRented, setTotalRented] = useState('');
   const [titleForm, setTitleForm] = useState('');
   const [targetValue, setTargetValue] = useState('');
   const [loadingTitle, setLoadingTitle] = useState('');
@@ -42,6 +43,9 @@ function BooksContextProvider({ children }) {
     if (id) {
       setId('');
     }
+    if (totalRented) {
+      setTotalRented('');
+    }
     if (selectValue) {
       setSelectValue('');
     }
@@ -55,7 +59,15 @@ function BooksContextProvider({ children }) {
     setShowDeleteConfirm(false);
   };
 
-  const handlerEdit = (bookId, bookName, bookPublisherId, bookAuthor, bookReleaseYear, bookQuantity) => {
+  const handlerEdit = (
+    bookId,
+    bookName,
+    bookPublisherId,
+    bookAuthor,
+    bookReleaseYear,
+    bookQuantity,
+    bookTotalRented
+  ) => {
     const book = {
       nome: bookName,
       editora: bookPublisherId,
@@ -66,6 +78,7 @@ function BooksContextProvider({ children }) {
     setBookDefaultFormValues(book);
     setSelectValue(bookPublisherId);
     setId(bookId);
+    setTotalRented(bookTotalRented);
     setTitleForm('Editar Livro');
     setShow(true);
   };
@@ -145,7 +158,8 @@ function BooksContextProvider({ children }) {
           },
           autor: data.autor,
           lancamento: data.lancamento,
-          quantidade: data.quantidade
+          quantidade: data.quantidade,
+          totalalugado: totalRented
         })
         .then((response) => {
           if (response !== null) {

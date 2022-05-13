@@ -1,4 +1,11 @@
-.publishers-page{
-    margin-left: 180px;
-    padding: 20px;
+.publishers-page {
+  margin-left: 180px;
+  padding: 20px;
+  transition: 0.4s;
+}
+
+.publishers-page-menuOff {
+  margin-left: 60px;
+  padding: 20px;
+  transition: 0.4s;
 }

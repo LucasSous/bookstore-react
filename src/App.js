@@ -9,19 +9,22 @@ import PublishersPage from './Pages/PublishersPage/PublishersPage.jsx';
 import RentsPage from './Pages/RentsPage/RentsPage.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import MenuContextProvider from './contexts/menuContext';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Menu />
-        <Routes>
-          <Route path="/" exact element={<DashboardPage />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/books" element={<BooksPage />} />
-          <Route path="/publishers" element={<PublishersPage />} />
-          <Route path="/rents" element={<RentsPage />} />
-        </Routes>
+        <MenuContextProvider>
+          <Menu />
+          <Routes>
+            <Route path="/" exact element={<DashboardPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/books" element={<BooksPage />} />
+            <Route path="/publishers" element={<PublishersPage />} />
+            <Route path="/rents" element={<RentsPage />} />
+          </Routes>
+        </MenuContextProvider>
         <ToastContainer
           position="bottom-left"
           autoClose={3000}

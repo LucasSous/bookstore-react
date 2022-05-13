@@ -145,7 +145,15 @@ function BooksList() {
                   <td>
                     <span
                       onClick={() =>
-                        handlerEdit(book.id, book.nome, book.editora.id, book.autor, book.lancamento, book.quantidade)
+                        handlerEdit(
+                          book.id,
+                          book.nome,
+                          book.editora.id,
+                          book.autor,
+                          book.lancamento,
+                          book.quantidade,
+                          book.totalalugado
+                        )
                       }
                       className="material-symbols-outlined btn-action"
                       title="Editar">
