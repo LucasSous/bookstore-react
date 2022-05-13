@@ -16,7 +16,7 @@
 
 .button-open {
   color: #fff;
-  padding: 5px;
+  padding: 10px;
   display: flex;
   justify-content: right;
 }
@@ -31,7 +31,7 @@
 }
 
 .button-open span {
-  font-size: 2.3rem;
+  font-size: 1.6rem;
   cursor: pointer;
 }
 

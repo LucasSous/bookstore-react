@@ -10,14 +10,23 @@ function Menu() {
   return (
     <div className={`${isActiveMenu ? 'menuActive' : 'menuOff'}`}>
       <div className="button-open">
-        <span
-          onClick={() => {
-            const active = isActiveMenu ? false : true;
-            setIsActiveMenu(active);
-          }}
-          className="material-symbols-outlined">
-          menu
-        </span>
+        {isActiveMenu ? (
+          <span
+            onClick={() => {
+              setIsActiveMenu(false);
+            }}
+            className="material-symbols-outlined">
+            arrow_back_ios_new
+          </span>
+        ) : (
+          <span
+            onClick={() => {
+              setIsActiveMenu(true);
+            }}
+            className="material-symbols-outlined">
+            menu
+          </span>
+        )}
       </div>
       <div className="logo">
         <img src={logo} alt="wda-livraria"></img>
