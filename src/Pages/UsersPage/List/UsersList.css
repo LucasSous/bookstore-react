@@ -37,6 +37,7 @@
 .btn-action {
   cursor: pointer;
   border-radius: 10px;
+  font-size: 1.3rem;
 }
 
 .btn-action:hover {

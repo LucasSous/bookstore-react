@@ -25,6 +25,13 @@ function RentsList() {
     }
   }
 
+  var date = new Date();
+  var day = String(date.getDate()).padStart(2, '0');
+  var month = String(date.getMonth() + 1).padStart(2, '0');
+  var year = date.getFullYear();
+
+  const currentDate = year + '-' + month + '-' + day;
+
   const notReturned = rents.filter(filterNotReturned);
 
   return (
@@ -64,6 +71,11 @@ function RentsList() {
                     <span>Previsão de Entrega</span>
                   </div>
                 </th>
+                <th scope="col">
+                  <div className="d-flex">
+                    <span>Status</span>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -74,6 +86,13 @@ function RentsList() {
                   <td>{rent.livro_id.nome}</td>
                   <td>{rent.data_aluguel}</td>
                   <td>{rent.data_previsao}</td>
+                  <td>
+                    {rent.data_previsao <= currentDate ? (
+                      <p className="pending">Pendente</p>
+                    ) : (
+                      <p className="in-progress">Em andamento</p>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
