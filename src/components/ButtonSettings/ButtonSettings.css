@@ -1,0 +1,21 @@
+.button-dark {
+  color: #ccc;
+  padding: 3px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.button-dark:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.button-light {
+  color: #1c1c1c;
+  padding: 3px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.button-light:hover {
+  background-color: rgba(24, 24, 24, 0.2);
+}

@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import MenuContextProvider from './contexts/menuContext';
 import React, { useContext } from 'react';
 import { GlobalContext } from './contexts/globalContext';
+import Settings from './components/Settings/Settings';
 
 function App() {
   const { backgroundTheme } = useContext(GlobalContext);
@@ -20,6 +21,7 @@ function App() {
       <div className={`${backgroundTheme}`}>
         <MenuContextProvider>
           <Menu />
+          <Settings />
           <Routes>
             <Route path="/" exact element={<DashboardPage />} />
             <Route path="/users" element={<UsersPage />} />

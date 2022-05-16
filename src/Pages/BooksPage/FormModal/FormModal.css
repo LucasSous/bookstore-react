@@ -22,3 +22,12 @@
   border-color: rgb(219, 0, 0);
   background-color: rgba(219, 0, 0, 0.11);
 }
+
+.modal-dark select {
+  background-color: #353535;
+  color: #ccc;
+}
+
+.modal-dark select option {
+  color: #ccc;
+}

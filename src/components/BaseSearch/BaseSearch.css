@@ -1,19 +1,44 @@
-.base-search {
+.search-light {
   margin-right: 15px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.137);
 }
 
-.input-group-text {
+.search-dark {
+  margin-right: 15px;
+  background-color: #252525;
+  border-radius: 4px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.137);
+}
+
+.search-light .input-group-text {
   background-color: #fff;
   border: none;
 }
 
-.input {
+.search-dark .input-group-text {
+  background-color: #252525;
+  border: none;
+}
+
+.search-dark .input-group-text span {
+  color: #ccc;
+}
+
+.search-light .input {
   border: none;
   border-radius: 0px 4px 4px 0px;
   padding-top: 4px;
+  background-color: #fff;
+}
+
+.search-dark .input {
+  border: none;
+  border-radius: 0px 4px 4px 0px;
+  padding-top: 4px;
+  background-color: #252525;
+  color: #ccc;
 }
 
 .input:focus {

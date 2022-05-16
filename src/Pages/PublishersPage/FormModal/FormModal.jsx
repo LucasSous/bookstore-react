@@ -8,12 +8,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import InputError from '../../../components/InputError/InputError.jsx';
 import './FormModal.css';
+import { GlobalContext } from '../../../contexts/globalContext';
 
 function FormModal() {
   const validationSchema = yup.object().shape({
     nome: yup.string().required('Campo obrigatório!'),
     cidade: yup.string().required('Campo obrigatório!')
   });
+
+  const { modalTheme } = useContext(GlobalContext);
 
   const { show, handleClose, savePublisher, titleForm, publisherDefaultFormValues } = useContext(PublishersContext);
 
@@ -33,7 +36,7 @@ function FormModal() {
   }
 
   return (
-    <Modal show={show} onHide={calcelForm}>
+    <Modal show={show} onHide={calcelForm} className={`${modalTheme}`}>
       <Row className="px-3 pt-3 pb-2">
         <Col>
           <BaseHeader title={titleForm} />

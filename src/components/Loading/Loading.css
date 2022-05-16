@@ -1,0 +1,19 @@
+.loading {
+  margin-top: 250px;
+}
+
+.loading-light .spinner-border {
+  color: #1c1c1c;
+}
+
+.loading-light .text {
+  color: #1c1c1c;
+}
+
+.loading-dark .spinner-border {
+  color: #ccc;
+}
+
+.loading-dark .text {
+  color: #ccc;
+}

@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../../contexts/globalContext';
+import './ButtonSettings.css';
 
 function ButtonSettings() {
-  const { setIsSettingsActive } = useContext(GlobalContext);
+  const { isSettingsActive, setIsSettingsActive, isThemeActive } = useContext(GlobalContext);
 
   return (
     <span
       onClick={() => {
-        setIsSettingsActive(true);
+        const active = isSettingsActive === false ? true : false;
+        setIsSettingsActive(active);
       }}
-      className="material-symbols-outlined">
+      className={`material-symbols-outlined ${isThemeActive ? 'button-dark' : 'button-light'}`}>
       settings
     </span>
   );

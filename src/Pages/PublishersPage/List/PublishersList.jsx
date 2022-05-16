@@ -7,6 +7,9 @@ import BaseHeader from '../../../components/BaseHeader/BaseHeader';
 import BaseSearch from '../../../components/BaseSearch/BaseSearch';
 import BaseButton from '../../../components/BaseButton/BaseButton';
 import { PublishersContext } from '../../../contexts/publishersContext';
+import { GlobalContext } from '../../../contexts/globalContext';
+import ButtonSettings from '../../../components/ButtonSettings/ButtonSettings';
+import Loading from '../../../components/Loading/Loading';
 
 function PublishersList() {
   const {
@@ -34,6 +37,8 @@ function PublishersList() {
     deletePublisher
   } = useContext(PublishersContext);
 
+  const { tableTheme } = useContext(GlobalContext);
+
   useEffect(() => {
     setCurrentPage(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,14 +50,15 @@ function PublishersList() {
         <Col>
           <BaseHeader title="Editoras" />
         </Col>
-        <Col className="d-flex justify-content-end actions">
+        <Col className="d-flex justify-content-end align-items-center actions">
+          <ButtonSettings />
           <BaseSearch change={handleSearch} />
           <BaseButton title="Adicionar Editora" click={handlerShow} />
         </Col>
       </Row>
       {publishers.length ? (
         <div>
-          <table className="table shadow-sm mt-4">
+          <table className={`${tableTheme} table shadow-sm mt-4`}>
             <thead className="thead-publishers">
               <tr>
                 <th onClick={ordinationId} className="th-start" scope="col">
@@ -129,16 +135,7 @@ function PublishersList() {
           />
         </div>
       ) : (
-        <div className="loading">
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3">
-            <span>{loadingTitle}...</span>
-          </div>
-        </div>
+        <Loading loadingTitle={loadingTitle} />
       )}
       <DeleteConfirmModal
         show={showDeleteConfirm}

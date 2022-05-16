@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import './Pagination.css';
+import { GlobalContext } from '../../contexts/globalContext';
 
 function Pagination({ pages, currentPage, setCurrentPage, itensPerPage, setItensPerPage }) {
+  const { textTheme } = useContext(GlobalContext);
+
   return (
     <div className="d-flex justify-content-center">
       {Array.from(Array(pages), (item, index) => {
@@ -16,7 +20,7 @@ function Pagination({ pages, currentPage, setCurrentPage, itensPerPage, setItens
         );
       })}
       <select
-        className="select-pagination"
+        className={`select-pagination ${textTheme + '-color'}`}
         value={itensPerPage}
         onChange={(e) => setItensPerPage(Number(e.target.value))}>
         <option value={5}>5</option>

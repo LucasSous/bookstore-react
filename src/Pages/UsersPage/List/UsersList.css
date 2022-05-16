@@ -44,10 +44,6 @@
   background-color: rgba(212, 212, 212, 0.5);
 }
 
-.loading {
-  margin-top: 250px;
-}
-
 .icon-sync {
   transform: rotate(90deg);
   font-size: 18px;

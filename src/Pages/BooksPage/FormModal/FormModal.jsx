@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import InputError from '../../../components/InputError/InputError.jsx';
 import api from '../../../services/api';
 import './FormModal.css';
+import { GlobalContext } from '../../../contexts/globalContext';
 
 function FormModal() {
   const validationSchema = yup.object().shape({
@@ -28,6 +29,8 @@ function FormModal() {
       .positive('O número deve ser positivo')
       .integer('O número deve ser inteiro')
   });
+
+  const { modalTheme } = useContext(GlobalContext);
 
   const { show, handleClose, saveBook, titleForm, bookDefaultFormValues, selectValue, setSelectValue } =
     useContext(BooksContext);
@@ -60,7 +63,7 @@ function FormModal() {
   };
 
   return (
-    <Modal show={show} onHide={calcelForm}>
+    <Modal show={show} onHide={calcelForm} className={`${modalTheme}`}>
       <Row className="px-3 pt-3 pb-2">
         <Col>
           <BaseHeader title={titleForm} />
@@ -91,7 +94,7 @@ function FormModal() {
               {...register('editora')}
               onChange={(e) => setSelectValue(e.target.value)}
               className={errors?.editora && 'errorPublisher'}>
-              <option></option>
+              <option value="">Selecione um Livro</option>
               {publishers.map((publisher) => (
                 <option key={publisher.id} value={publisher.id}>
                   {publisher.nome}

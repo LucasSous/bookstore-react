@@ -1,10 +1,14 @@
 import './DeleteConfirmModal.css';
 import { Modal } from 'react-bootstrap';
 import BaseButtonForm from '../BaseButtonForm/BaseButtonForm.jsx';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../../contexts/globalContext';
 
 function DeleteConfirmModal(props) {
+  const { modalTheme } = useContext(GlobalContext);
+
   return (
-    <Modal size="sm" show={props.show} onHide={props.onHide}>
+    <Modal size="sm" show={props.show} onHide={props.onHide} className={`${modalTheme}`}>
       <Modal.Body>
         <h1 className="d-flex justify-content-center title">DELETAR</h1>
         <p className="message">{props.message}</p>

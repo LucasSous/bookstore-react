@@ -15,14 +15,14 @@
 }
 
 .button-open {
-  color: #fff;
+  color: #ccc;
   padding: 10px;
   display: flex;
   justify-content: right;
 }
 
 .menuOff .button-open {
-  color: #fff;
+  color: #ccc;
   padding: 5px;
   display: flex;
   justify-content: center;

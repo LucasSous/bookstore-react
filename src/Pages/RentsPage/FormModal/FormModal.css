@@ -1,0 +1,9 @@
+.errorUser {
+  border-color: rgb(219, 0, 0);
+  background-color: rgba(219, 0, 0, 0.11);
+}
+
+.errorBook {
+  border-color: rgb(219, 0, 0);
+  background-color: rgba(219, 0, 0, 0.11);
+}

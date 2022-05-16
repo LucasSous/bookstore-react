@@ -9,7 +9,7 @@ function Charts() {
   const [rents, setRents] = useState([]);
   const [mostRentedBooks, setMostRentedBooks] = useState([]);
 
-  const { cardTheme, textTheme } = useContext(GlobalContext);
+  const { cardTheme, textTheme, isThemeActive, loadingTheme } = useContext(GlobalContext);
 
   const getRents = () => {
     api.get('alugueis').then(({ data }) => {
@@ -49,6 +49,8 @@ function Charts() {
     getMostRentedBooks();
   }, []);
 
+  const color = isThemeActive ? '#ccc' : '#000000';
+
   const dataChart = mostRentedBooks.slice(0, 5);
 
   const options = {
@@ -61,7 +63,8 @@ function Charts() {
     colors: ['#198754'],
     chart: {
       type: 'bar',
-      height: 350
+      height: 350,
+      foreColor: color
     },
     plotOptions: {
       bar: {
@@ -83,7 +86,8 @@ function Charts() {
   const donutChart = {
     series: [notReturned.length, onTime.length, onDelay.length],
     chart: {
-      type: 'donut'
+      type: 'donut',
+      foreColor: color
     },
     labels: ['Não devolvido', 'No prazo', 'Em atraso'],
     colors: ['#198754', '#0e4129', '#15d179'],
@@ -116,14 +120,14 @@ function Charts() {
                   <Chart options={options} series={options.series} type="bar" width="100%" height={270} />
                 </div>
               ) : (
-                <div>
+                <div className={`${loadingTheme}`}>
                   <div className="d-flex justify-content-center">
                     <div className="spinner-border" role="status">
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
                   <div className="d-flex justify-content-center mt-3">
-                    <span>Carregando dados...</span>
+                    <span className="text">Carregando dados...</span>
                   </div>
                 </div>
               )}
@@ -141,14 +145,14 @@ function Charts() {
                   <Chart options={donutChart} series={donutChart.series} type="donut" width={450} height={350} />
                 </div>
               ) : (
-                <div>
+                <div className={`${loadingTheme}`}>
                   <div className="d-flex justify-content-center">
                     <div className="spinner-border" role="status">
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
                   <div className="d-flex justify-content-center mt-3">
-                    <span>Carregando dados...</span>
+                    <span className="text">Carregando dados...</span>
                   </div>
                 </div>
               )}

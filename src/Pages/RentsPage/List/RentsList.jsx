@@ -7,6 +7,9 @@ import { Col, Row } from 'react-bootstrap';
 import BaseHeader from '../../../components/BaseHeader/BaseHeader';
 import BaseSearch from '../../../components/BaseSearch/BaseSearch';
 import BaseButton from '../../../components/BaseButton/BaseButton';
+import { GlobalContext } from '../../../contexts/globalContext';
+import ButtonSettings from '../../../components/ButtonSettings/ButtonSettings';
+import Loading from '../../../components/Loading/Loading';
 
 function RentsList() {
   const {
@@ -40,6 +43,8 @@ function RentsList() {
     isActiveDevolutionDate
   } = useContext(RentsContext);
 
+  const { tableTheme } = useContext(GlobalContext);
+
   useEffect(() => {
     setCurrentPage(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,14 +56,15 @@ function RentsList() {
         <Col>
           <BaseHeader title="Aluguéis" />
         </Col>
-        <Col className="d-flex justify-content-end actions">
+        <Col className="d-flex justify-content-end align-items-center actions">
+          <ButtonSettings />
           <BaseSearch change={handlerSearch} />
           <BaseButton title="Adicionar Aluguél" click={handlerShow} />
         </Col>
       </Row>
       {rents.length ? (
         <div>
-          <table className="table shadow-sm mt-4">
+          <table className={`${tableTheme} table shadow-sm mt-4`}>
             <thead className="thead-rents">
               <tr>
                 <th onClick={ordinationId} className="th-start" scope="col">
@@ -188,16 +194,7 @@ function RentsList() {
           />
         </div>
       ) : (
-        <div className="loading">
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3">
-            <span>{loadingTitle}...</span>
-          </div>
-        </div>
+        <Loading loadingTitle={loadingTitle} />
       )}
       <DeleteConfirmModal
         show={showDeleteConfirm}

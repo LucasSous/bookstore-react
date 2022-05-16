@@ -17,3 +17,25 @@
   border-color: rgb(219, 0, 0);
   background-color: rgba(219, 0, 0, 0.11);
 }
+
+.modal-dark .modal-content {
+  background-color: #252525;
+}
+
+.modal-dark .close-icon {
+  color: #ccc;
+}
+
+.modal-dark input {
+  background-color: #353535;
+  color: #ccc;
+}
+
+.modal-dark input:focus {
+  background-color: #353535;
+  color: #ccc;
+}
+
+.modal-dark label {
+  color: #ccc;
+}

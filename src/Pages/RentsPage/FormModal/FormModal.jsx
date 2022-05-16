@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import InputError from '../../../components/InputError/InputError.jsx';
 import './FormModal.css';
+import { GlobalContext } from '../../../contexts/globalContext';
 
 function FormModal() {
   const validationSchema = yup.object().shape({
@@ -17,6 +18,8 @@ function FormModal() {
     data_previsao: yup.string().required('Campo obrigatório!'),
     data_devolucao: yup.string().required('Campo obrigatório!')
   });
+
+  const { modalTheme } = useContext(GlobalContext);
 
   const { show, handlerClose, saveRent, titleForm, rentDefaultFormValues, selectValue, setSelectValue, rents } =
     useContext(RentsContext);
@@ -37,7 +40,7 @@ function FormModal() {
   }
 
   return (
-    <Modal show={show} onHide={calcelForm}>
+    <Modal show={show} onHide={calcelForm} className={`${modalTheme}`}>
       <Row className="px-3 pt-3 pb-2">
         <Col>
           <BaseHeader title={titleForm} />

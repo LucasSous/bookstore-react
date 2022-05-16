@@ -4,6 +4,7 @@ import BaseButton from '../../../components/BaseButton/BaseButton.jsx';
 import api from '../../../services/api.js';
 import './RentsList.css';
 import { GlobalContext } from '../../../contexts/globalContext.jsx';
+import Loading from '../../../components/Loading/Loading.jsx';
 
 function RentsList() {
   const [rents, setRents] = useState([]);
@@ -102,16 +103,7 @@ function RentsList() {
           </table>
         </div>
       ) : (
-        <div className="loading">
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3">
-            <span>Carregando dados...</span>
-          </div>
-        </div>
+        <Loading loadingTitle="Carregando dados" />
       )}
     </div>
   );

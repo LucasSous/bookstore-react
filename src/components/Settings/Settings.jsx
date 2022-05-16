@@ -3,10 +3,11 @@ import './Settings.css';
 import { GlobalContext } from '../../contexts/globalContext';
 
 function Settings() {
-  const { isSettingsActive, setIsSettingsActive, isThemeActive, themeLight, themeDark } = useContext(GlobalContext);
+  const { isSettingsActive, setIsSettingsActive, isThemeActive, themeLight, themeDark, settingsTheme } =
+    useContext(GlobalContext);
 
   return (
-    <div className={`${isSettingsActive ? 'settings-container-active' : 'settings-container-off'}`}>
+    <div className={`${isSettingsActive ? 'settings-container-active' : 'settings-container-off'} ${settingsTheme}`}>
       <div
         className="d-flex justify-content-between header span:hover {
  align-items-center">

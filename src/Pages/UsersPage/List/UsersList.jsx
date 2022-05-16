@@ -7,6 +7,9 @@ import { Col, Row } from 'react-bootstrap';
 import BaseHeader from '../../../components/BaseHeader/BaseHeader';
 import BaseSearch from '../../../components/BaseSearch/BaseSearch';
 import BaseButton from '../../../components/BaseButton/BaseButton';
+import ButtonSettings from '../../../components/ButtonSettings/ButtonSettings';
+import { GlobalContext } from '../../../contexts/globalContext';
+import Loading from '../../../components/Loading/Loading';
 
 function UsersList() {
   const {
@@ -38,6 +41,8 @@ function UsersList() {
     isActiveEmail
   } = useContext(UsersContext);
 
+  const { tableTheme } = useContext(GlobalContext);
+
   useEffect(() => {
     setCurrentPage(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,14 +54,15 @@ function UsersList() {
         <Col>
           <BaseHeader title="Usuários" />
         </Col>
-        <Col className="d-flex justify-content-end actions">
+        <Col className="d-flex justify-content-end align-items-center actions">
+          <ButtonSettings />
           <BaseSearch change={handleSearch} />
           <BaseButton title="Adicionar Usuário" click={handleShow} />
         </Col>
       </Row>
       {users.length ? (
         <div>
-          <table className="table shadow-sm mt-4">
+          <table className={`${tableTheme} table shadow-sm mt-4`}>
             <thead className="thead-users">
               <tr>
                 <th onClick={ordinationId} className="th-start" scope="col">
@@ -159,16 +165,7 @@ function UsersList() {
           />
         </div>
       ) : (
-        <div className="loading">
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3">
-            <span>{loadingTitle}...</span>
-          </div>
-        </div>
+        <Loading loadingTitle={loadingTitle} />
       )}
       <DeleteConfirmModal
         show={showDeleteConfirm}

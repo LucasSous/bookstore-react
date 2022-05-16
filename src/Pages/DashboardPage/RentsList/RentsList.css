@@ -29,6 +29,7 @@
 
 .table-theme-dark tbody tr td {
   color: rgb(194, 194, 194);
+  border-color: rgb(54, 54, 54);
 }
 
 .table-theme-dark tbody .items-tr:hover {

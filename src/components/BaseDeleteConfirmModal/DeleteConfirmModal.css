@@ -7,3 +7,15 @@
   margin: 0;
   font-size: 0.9rem;
 }
+
+.modal-dark .title {
+  font-size: 1.7rem;
+  color: #ccc;
+}
+
+.modal-dark .message {
+  text-align: center;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}

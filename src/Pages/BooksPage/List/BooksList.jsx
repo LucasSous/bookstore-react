@@ -7,6 +7,9 @@ import React, { useContext } from 'react';
 import './BooksList.css';
 import DeleteConfirmModal from '../../../components/BaseDeleteConfirmModal/DeleteConfirmModal';
 import Pagination from '../../../components/Pagination/Pagination';
+import { GlobalContext } from '../../../contexts/globalContext';
+import ButtonSettings from '../../../components/ButtonSettings/ButtonSettings';
+import Loading from '../../../components/Loading/Loading';
 
 function BooksList() {
   const {
@@ -40,20 +43,23 @@ function BooksList() {
     isActiveQuantity
   } = useContext(BooksContext);
 
+  const { tableTheme } = useContext(GlobalContext);
+
   return (
     <div className="books-list">
       <Row>
         <Col>
           <BaseHeader title="Livros"></BaseHeader>
         </Col>
-        <Col className="d-flex justify-content-end actions">
+        <Col className="d-flex justify-content-end align-items-center actions">
+          <ButtonSettings />
           <BaseSearch change={handleSearch} />
           <BaseButton title="Adicionar Livro" click={handleShow} />
         </Col>
       </Row>
       {books.length ? (
         <div>
-          <table className="table shadow-sm mt-4">
+          <table className={`${tableTheme} table shadow-sm mt-4`}>
             <thead className="thead-books">
               <tr>
                 <th onClick={ordinationId} className="th-start" scope="col">
@@ -181,16 +187,7 @@ function BooksList() {
           />
         </div>
       ) : (
-        <div className="loading">
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3">
-            <span>{loadingTitle}...</span>
-          </div>
-        </div>
+        <Loading loadingTitle={loadingTitle} />
       )}
       <DeleteConfirmModal
         show={showDeleteConfirm}

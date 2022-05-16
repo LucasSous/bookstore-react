@@ -13,3 +13,15 @@
   background-color: transparent;
   margin-left: 4px;
 }
+
+.text-light-color {
+  color: #1c1c1c;
+}
+
+.text-dark-color {
+  color: #ccc;
+}
+
+.text-dark-color option {
+  background-color: #1c1c1c;
+}

@@ -1,8 +1,12 @@
 import './BaseSearch.css';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../../contexts/globalContext';
 
 function BaseSearch({ change }) {
+  const { searchTheme } = useContext(GlobalContext);
+
   return (
-    <div className="base-search">
+    <div className={`${searchTheme} ms-3`}>
       <div className="input-group">
         <div className="input-group-text">
           <span className="material-symbols-outlined">search</span>
