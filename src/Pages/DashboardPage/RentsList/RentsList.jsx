@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BaseButton from '../../../components/BaseButton/BaseButton.jsx';
 import api from '../../../services/api.js';
 import './RentsList.css';
+import { GlobalContext } from '../../../contexts/globalContext.jsx';
 
 function RentsList() {
   const [rents, setRents] = useState([]);
+
+  const { textTheme, tableTheme } = useContext(GlobalContext);
 
   const navigate = useNavigate();
 
@@ -36,14 +39,14 @@ function RentsList() {
 
   return (
     <div>
-      <div className="d-flex align-items-center mt-3">
-        <h1 className="title me-2 mb-0">Aluguéis em andamento</h1>
+      <div className={`d-flex align-items-center mt-3 ${textTheme}`}>
+        <h1 className="me-2 mb-0">Aluguéis em andamento</h1>
         <BaseButton click={() => navigate('/rents')} title="Ir para Aluguéis" />
       </div>
 
       {rents.length ? (
         <div>
-          <table className="table shadow-sm mt-3">
+          <table className={`${tableTheme} table shadow-sm mt-3`}>
             <thead className="thead-dashboard-rents">
               <tr>
                 <th className="th-start" scope="col">
@@ -88,9 +91,9 @@ function RentsList() {
                   <td>{rent.data_previsao}</td>
                   <td>
                     {rent.data_previsao <= currentDate ? (
-                      <p className="pending">Pendente</p>
+                      <p className="chip-pending">Pendente</p>
                     ) : (
-                      <p className="in-progress">Em andamento</p>
+                      <p className="chip-in-progress">Em andamento</p>
                     )}
                   </td>
                 </tr>

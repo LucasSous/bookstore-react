@@ -1,5 +1,11 @@
-.title {
+.text-light h1 {
   font-size: 1.6rem;
+  color: black;
+}
+
+.text-dark h1 {
+  font-size: 1.6rem;
+  color: rgb(194, 194, 194);
 }
 
 .table .thead-dashboard-rents {
@@ -9,7 +15,27 @@
   border: none;
 }
 
-.pending {
+.table-theme-light {
+  background-color: #fff;
+}
+
+.table-theme-dark {
+  background-color: #252525;
+}
+
+.table-theme-light tbody tr td {
+  color: black;
+}
+
+.table-theme-dark tbody tr td {
+  color: rgb(194, 194, 194);
+}
+
+.table-theme-dark tbody .items-tr:hover {
+  background-color: #2e2e2e;
+}
+
+.chip-pending {
   color: rgb(255, 255, 255);
   border: 1px solid rgb(196, 196, 0);
   border-radius: 12px;
@@ -20,7 +46,7 @@
   background-color: rgba(151, 151, 0, 0.6);
 }
 
-.in-progress {
+.chip-in-progress {
   color: rgb(255, 255, 255);
   border: 1px solid rgb(0, 89, 255);
   border-radius: 12px;

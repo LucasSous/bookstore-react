@@ -10,11 +10,14 @@ import RentsPage from './Pages/RentsPage/RentsPage.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import MenuContextProvider from './contexts/menuContext';
+import React, { useContext } from 'react';
+import { GlobalContext } from './contexts/globalContext';
 
 function App() {
+  const { backgroundTheme } = useContext(GlobalContext);
   return (
     <Router>
-      <div className="App">
+      <div className={`${backgroundTheme}`}>
         <MenuContextProvider>
           <Menu />
           <Routes>

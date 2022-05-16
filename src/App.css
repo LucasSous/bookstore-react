@@ -1,5 +1,13 @@
-.App {
+.theme-light {
   background-color: rgb(240, 240, 240);
+  min-height: 100vh;
+  transition: 0.2s;
+}
+
+.theme-dark {
+  background-color: #353535;
+  min-height: 100vh;
+  transition: 0.2s;
 }
 
 ::-webkit-scrollbar {

@@ -1,0 +1,38 @@
+.table .thead-rents {
+  background-color: #1c1c1c;
+  color: rgb(194, 194, 194);
+  border-radius: 20px;
+}
+
+.chip-not-returned {
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 89, 255);
+  border-radius: 12px;
+  text-align: center;
+  max-width: 130px;
+  margin: 0;
+  font-weight: 600;
+  background-color: rgba(0, 89, 255, 0.7);
+}
+
+.chip-on-time {
+  color: rgb(255, 255, 255);
+  border: 1px solid #198754;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 130px;
+  margin: 0;
+  font-weight: 600;
+  background-color: #198754b7;
+}
+
+.chip-overdue {
+  color: rgb(255, 255, 255);
+  border: 1px solid red;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 130px;
+  margin: 0;
+  font-weight: 600;
+  background-color: rgba(255, 0, 0, 0.5);
+}

@@ -1,11 +1,15 @@
 import Chart from 'react-apexcharts';
 import { Card, Row, Col } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import api from '../../../services/api.js';
+import { GlobalContext } from '../../../contexts/globalContext.jsx';
+import './Charts.css';
 
 function Charts() {
   const [rents, setRents] = useState([]);
   const [mostRentedBooks, setMostRentedBooks] = useState([]);
+
+  const { cardTheme, textTheme } = useContext(GlobalContext);
 
   const getRents = () => {
     api.get('alugueis').then(({ data }) => {
@@ -102,9 +106,11 @@ function Charts() {
     <div className="charts">
       <Row className="mt-4">
         <Col>
-          <Card>
+          <Card className={cardTheme}>
             <Card.Body>
-              <Card.Title className="d-flex justify-content-center">Livros mais alugados</Card.Title>
+              <Card.Title className={`d-flex justify-content-center ${textTheme}`}>
+                <p>Livros mais alugados</p>
+              </Card.Title>
               {mostRentedBooks.length ? (
                 <div>
                   <Chart options={options} series={options.series} type="bar" width="100%" height={270} />
@@ -125,9 +131,11 @@ function Charts() {
           </Card>
         </Col>
         <Col>
-          <Card>
+          <Card className={cardTheme}>
             <Card.Body>
-              <Card.Title className="d-flex justify-content-center">Status de aluguéis</Card.Title>
+              <Card.Title className={`d-flex justify-content-center ${textTheme}`}>
+                <p>Status de aluguéis</p>
+              </Card.Title>
               {rents.length ? (
                 <div className="d-flex justify-content-center">
                   <Chart options={donutChart} series={donutChart.series} type="donut" width={450} height={350} />

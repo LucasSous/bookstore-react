@@ -1,0 +1,15 @@
+.card-light {
+  background-color: #fff;
+}
+
+.card-dark {
+  background-color: #252525;
+}
+
+.text-light p {
+  color: rgb(0, 0, 0);
+}
+
+.text-dark p {
+  color: rgb(194, 194, 194);
+}

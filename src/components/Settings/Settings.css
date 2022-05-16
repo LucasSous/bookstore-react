@@ -1,0 +1,74 @@
+.settings-container-active {
+  position: fixed;
+  height: 100%;
+  width: 250px;
+  right: 0px;
+  top: 0;
+  background-color: #1c1c1c;
+  padding: 15px;
+  transition: 0.4s;
+}
+
+.settings-container-off {
+  position: fixed;
+  height: 100%;
+  width: 250px;
+  right: -250px;
+  top: 0;
+  background-color: #1c1c1c;
+  padding: 15px;
+  transition: 0.4s;
+}
+
+.header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(194, 194, 194, 0.5);
+}
+
+.header span {
+  color: rgb(194, 194, 194);
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+.header span:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.header h1 {
+  color: rgb(194, 194, 194);
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.themes {
+  width: 100%;
+  margin-top: 40px;
+}
+
+.themes h1 {
+  color: rgb(194, 194, 194);
+  font-size: 1rem;
+}
+
+.cards-theme {
+  width: 100%;
+}
+
+.card-theme {
+  padding: 10px 5px;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.card-theme-active {
+  background-color: #198754;
+  transition: 0.4s;
+}
+
+.card-theme-off {
+  background-color: #ffffff2d;
+  transition: 0.4s;
+}

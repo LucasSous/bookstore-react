@@ -1,7 +1,15 @@
-.base-header h1 {
+.text-light h1 {
   border-left: 4px solid #198754;
   padding-left: 10px;
   color: #1c1c1c;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.text-dark h1 {
+  border-left: 4px solid #198754;
+  padding-left: 10px;
+  color: rgb(194, 194, 194);
   font-size: 2rem;
   margin: 0;
 }
